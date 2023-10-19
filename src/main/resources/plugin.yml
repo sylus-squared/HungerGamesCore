@@ -1,0 +1,66 @@
+name: HungerGamesCore
+version: '${project.version}'
+main: dev.sylus.HungerGamesCore.HungerGamesCore
+api-version: 1.18
+description: This plugin is for a hunger games tournament. It is speciphically designed for this one event so will not work on other servers
+
+commands:
+  gameStart:
+    usage: /gameStart
+    aliases: /gs
+    description: This command starts the game
+    permission: hungergamescore.startgame
+
+  setState:
+    usage: /setState <args>
+    aliases: /st
+    description: This command sets the current state of the game
+    permission: hungergamescore.setstate
+
+  resetChests:
+    usage: /resetChests
+    description: This command removes all chests from the chest manager so new loot is generated
+    permission: hungergamescore.resetChests
+    permission-message: You do not have the permission for this command
+
+  stopGame:
+    usage: /stopGame
+    description: This command stops the game
+    permission: hungergamescore.stopGame
+
+  togglePlayerCount:
+    usage: /togglePlayerCount
+    description: This command toggles if players should be counted or not
+    permission: hungergamescore.toggleCount
+
+  giveChest:
+    usage: /giveChest <args>
+    description: This command gives a player a chest with the rarity they specified in the args
+    permission: hungergamescore.giveChest
+
+
+permissions:
+  hungergamescore.startgame:
+    description: Allows players to user the /gameStart command
+
+  hungergamescore.setstate:
+    description: Allows players to use the /setstate command
+
+  hungergamescore.resetChests:
+    description: Allows players to use the /resetChests command
+
+  hungergamescore.stopGame:
+    description: Allows the player to use the /stopGame command
+
+  hungergamescore.toggleCount:
+    description: Allows the player to use the /togglePlayerCount command
+
+  hungergamescore.giveChest:
+    description: Allows the player to use the /giveChest command
+
+  hungergamescore.gameModeImmune:
+    description: Allows the makes the player immune to being set to adventure mode when they join
+
+
+
+
