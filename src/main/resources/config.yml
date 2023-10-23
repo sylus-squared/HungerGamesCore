@@ -1,3 +1,7 @@
+database:
+  username: usernameHere
+  password: passwordHere
+
 firstHalfLootItems:
   common:
     0:
