@@ -1,7 +1,6 @@
 package dev.sylus.HungerGamesCore.Game;
 
 import dev.sylus.HungerGamesCore.Enums.GameState;
-import io.github.bananapuncher714.nbteditor.NBTEditor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -58,11 +57,13 @@ public class ChestManager implements Listener {
                 return;
             }
 
-            if (Objects.equals(NBTEditor.getString(holder, "chestKey", "value"), "EGGTHROW")){
+        /*    if (Objects.equals(NBTEditor.getString(holder, "chestKey", "value"), "EGGTHROW")){
                 if (game.getState() == GameState.gameState.SECONDHALF){
                     itemsSection = lootConfig.getConfigurationSection("secondHalfLootItems.COMMON");
                 }
             }
+
+         */
 
             markAsOpened(chest.getLocation());
             fill(chest.getBlockInventory());

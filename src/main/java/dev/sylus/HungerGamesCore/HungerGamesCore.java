@@ -58,7 +58,7 @@ public final class HungerGamesCore extends JavaPlugin {
         // Initialise everything
         game = new Game(this);
         files = new Files(this, "worldData.yml");
-        databases = new Databases(game, this);
+        databases = new Databases(game, this, files);
         scorebord = new Scorebord(game, files, databases, getGameTimer(), this); // this might not work :/
         gameRunTask = new GameRunTask(game, this);
         gameCountDownTask = new GameCountDownTask(game, this);
@@ -106,11 +106,13 @@ public final class HungerGamesCore extends JavaPlugin {
         }
 
         scorebord.refreshScorebordAll();
+        databases.initiliseDatabase();
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        databases.cloaseConnection();
     }
 
     public HungerGamesCore getMain(){
