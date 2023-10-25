@@ -139,7 +139,7 @@ public class GameTimer extends BukkitRunnable {
                     return "Refill over";
                 }
                 return String.valueOf(refillTimer);
-        } else {
+        } else { // Deathmatch time
             return String.valueOf(deathmatchCountdown);
         }
     }
@@ -170,5 +170,9 @@ public class GameTimer extends BukkitRunnable {
                 scorebord.refreshScorebordAll();
             }
         }
+    }
+
+    public void startDeathmatch(){
+        game.setState(GameState.gameState.DEATHMATCH, "GameTimer Only 2 players left"); // Stops all the timers and starts the deathmatch timer
     }
 }

@@ -44,7 +44,7 @@ public class JoinAndLeave implements Listener {
             game.addPlayer(player);
             scorebord.refreshScorebordAll();
             player.sendMessage(ChatColor.LIGHT_PURPLE + "The game will start shortly, please wait");
-            player.sendMessage(ChatColor.RED + "Currently playing build number:" + ChatColor.YELLOW + "106" + ChatColor.RED + " and testing the chest system"); // Change this to colour codes at some point
+            player.sendMessage(ChatColor.RED + "Currently playing build number: " + ChatColor.YELLOW + "122" + ChatColor.RED + " and testing the database system"); // Change this to colour codes at some point
             if (!(player.hasPermission("hungergamescore.gameModeImmune") || game.getState() == GameState.gameState.TESTING)){
                 player.setGameMode(GameMode.ADVENTURE); // The default game mode will be adventure, this is just in case
             }
@@ -67,7 +67,7 @@ public class JoinAndLeave implements Listener {
             gameTimer.stopGame(false);
             Bukkit.getLogger().log(Level.INFO, "Game OOOOOOVERRRR");
         } else if (game.getPlayerNumbers() == 2) { // There are 2 players left, its deathmatch time
-
+            gameTimer.startDeathmatch();
         }
 
         double x = player.getLocation().getX();

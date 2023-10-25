@@ -84,6 +84,7 @@ public final class HungerGamesCore extends JavaPlugin {
         getCommand("stopGame").setExecutor(new StopGame(gameTimer, game));
         getCommand("togglePlayerCount").setExecutor(new TogglePlayerCount(game));
         getCommand("giveChest").setExecutor(new GiveChest());
+        getCommand("databaseTest").setExecutor(new DatabaseTest(databases));
 
 
 

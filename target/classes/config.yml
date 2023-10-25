@@ -1,6 +1,6 @@
 database:
-  username: usernameHere
-  password: passwordHere
+  username: root
+  password: root
 
 firstHalfLootItems:
   common:

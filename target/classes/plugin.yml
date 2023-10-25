@@ -38,6 +38,10 @@ commands:
     description: This command gives a player a chest with the rarity they specified in the args
     permission: hungergamescore.giveChest
 
+  databaseTest:
+    usage: /databaseTest
+    description: This command tests getting data from the database
+
 
 permissions:
   hungergamescore.startgame:

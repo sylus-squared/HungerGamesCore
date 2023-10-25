@@ -45,7 +45,7 @@ public class PlayerDeathEvent implements Listener {
             gameTimer.stopGame(false);
             Bukkit.getLogger().log(Level.INFO, "Game OOOOOOVERRRR");
         } else if (game.getPlayerNumbers() == 2) { // There are 2 players left, its deathmatch time
-
+            gameTimer.startDeathmatch();
         }
 
         double x = player.getLocation().getX();

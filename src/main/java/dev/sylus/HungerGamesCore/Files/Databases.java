@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.mariadb.jdbc.Connection;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
@@ -35,7 +37,7 @@ public class Databases {
             Class.forName(this.driver);
 
             connection = (Connection) DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/database_name",
+                    "jdbc:mariadb://localhost:3306/testDB",
                     username, password
             );
         } catch (SQLException error) {
@@ -51,6 +53,19 @@ public class Databases {
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
         }
+    }
+
+    public String getDataTest(){
+        try (PreparedStatement statement = connection.prepareStatement("""
+            SELECT bookName, bookAuthor
+            FROM testDB
+        """)) {
+            ResultSet resultSet = statement.executeQuery();
+            return String.valueOf(resultSet);
+        } catch (SQLException error){
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
+        }
+        return "Some kind of error";
     }
 
     public int getTotalPoints(Player player){
