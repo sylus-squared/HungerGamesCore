@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -46,7 +45,7 @@ public class Databases {
      */
 
 
-    public void initiliseDatabase(){
+    public void initialiseDatabase(){
         try {
             driver = "org.mariadb.jdbc.Driver";
             Class.forName(this.driver);
@@ -64,6 +63,7 @@ public class Databases {
 
     public void closeConnection(){
         try {
+            Bukkit.getLogger().log(Level.WARNING, "Closed the database connection");
             connection.close();
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
@@ -76,12 +76,16 @@ public class Databases {
         dataTable (table duh)
             UUID: varchar(255)
             Name: varchar(255)
-            Kills: int(255)
+            Kills: int(255) *not used*
             Points: int(255)
-            Score: int(255)
+            Score: int(255) *not used*
      */
 
     public boolean isInDatabase(UUID uuid) {
+        if (connection == null){
+            initialiseDatabase();
+        }
+
         try {
             String sql = "SELECT UUID FROM dataTable WHERE UUID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -108,6 +112,10 @@ public class Databases {
         String points = "null";
         String score = "null";
         ArrayList<String> dataToReturn =  new ArrayList<String>();
+
+        if (connection == null){
+            initialiseDatabase();
+        }
 
         try {
             String statement = "SELECT * FROM dataTable WHERE UUID = ?";
@@ -137,16 +145,36 @@ public class Databases {
     }
 
     public void addNewPlayer(UUID UUID, String name){ // Remember to turn the UUID into a string
-        try (PreparedStatement statement = connection.prepareStatement("""
-        INSERT INTO dataTable(UUID, Name, Kills, Points, Score)
-        VALUES (?, ?, ?, ?, ?)
-      """)) {
+        if (connection == null){
+            initialiseDatabase();
+        }
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO dataTable(UUID, Name, Kills, Points, Score) VALUES (?, ?, ?, ?, ?)");
             statement.setString(1, UUID.toString());
             statement.setString(2, name);
             statement.setInt(3, 0);
             statement.setInt(4, 0);
             statement.setInt(5, 0);
-            int rowsInserted = statement.executeUpdate();
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException error) {
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
+        }
+    }
+
+    public void updateData(UUID uuid, int points){
+        if (connection == null){
+            initialiseDatabase();
+        }
+        try {
+            String statement = "UPDATE dataTable SET Points = ? WHERE UUID = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, String.valueOf(points));
+            preparedStatement.setString(2, uuid.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.close();
+            preparedStatement.close();
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
         }

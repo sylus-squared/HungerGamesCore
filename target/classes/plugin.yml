@@ -42,6 +42,10 @@ commands:
     usage: /databaseTest
     description: This command tests getting data from the database
 
+  addPoints:
+    usage: /addPoints
+    description: Adds some points to the player who sent it
+
 
 permissions:
   hungergamescore.startgame:

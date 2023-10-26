@@ -160,6 +160,11 @@ public class Scorebord implements Listener {
 
 
     public void refreshScorebordAll(){
+
+        if (databases == null){
+            databases = main.getDatabases();
+        }
+
         for (Player players: Bukkit.getOnlinePlayers()){
             switch (game.getState()){
                 case ACTIVE:

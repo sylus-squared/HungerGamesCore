@@ -32,9 +32,7 @@ public final class HungerGamesCore extends JavaPlugin {
     TODO:
     * Create the deathmatch system
     * Create the logic to teleport people to the correct spots (Gets the coordinates from the world data.yaml file)
-    * Find the maps
     * Create the lobby plugin, that means armour stands :(
-    * Setup the database
     * Create the API
     * Remember to actually update this
     * yaml death
@@ -60,9 +58,9 @@ public final class HungerGamesCore extends JavaPlugin {
         files = new Files(this, "worldData.yml");
         databases = new Databases(game, this, files);
         scorebord = new Scorebord(game, files, databases, getGameTimer(), this); // this might not work :/
-        gameRunTask = new GameRunTask(game, this);
+        gameRunTask = new GameRunTask(game, this, databases);
         gameCountDownTask = new GameCountDownTask(game, this);
-        gameTimer = new GameTimer(this, game);
+        gameTimer = new GameTimer(this, game, databases);
 
         JoinAndLeave joinAndLeave = new JoinAndLeave(game, files, scorebord, gameTimer, databases);
         MovementFreeze movementFreeze = new MovementFreeze(game);
@@ -84,7 +82,8 @@ public final class HungerGamesCore extends JavaPlugin {
         getCommand("stopGame").setExecutor(new StopGame(gameTimer, game));
         getCommand("togglePlayerCount").setExecutor(new TogglePlayerCount(game));
         getCommand("giveChest").setExecutor(new GiveChest());
-        getCommand("databaseTest").setExecutor(new DatabaseTest(databases));
+        getCommand("databaseTest").setExecutor(new DatabaseTest(databases)); // Remove this eventually
+        getCommand("addPoints").setExecutor(new AddPoints(databases));
 
 
 
@@ -107,7 +106,7 @@ public final class HungerGamesCore extends JavaPlugin {
         }
 
         scorebord.refreshScorebordAll();
-        databases.initiliseDatabase();
+        databases.initialiseDatabase();
     }
 
     @Override
@@ -124,11 +123,15 @@ public final class HungerGamesCore extends JavaPlugin {
         return new GameCountDownTask(game, this);
     }
     public GameTimer getGameTimer(){
-        return new GameTimer(this, game);
+        return new GameTimer(this, game, databases);
     }
 
     public void refreshScorebordAll(){
         scorebord.refreshScorebordAll();
+    }
+
+    public Databases getDatabases(){
+        return databases;
     }
 
 

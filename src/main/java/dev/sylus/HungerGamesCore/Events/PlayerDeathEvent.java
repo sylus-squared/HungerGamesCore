@@ -36,7 +36,7 @@ public class PlayerDeathEvent implements Listener {
         Player player = event.getEntity();
         GameState.gameState gameState = game.getState(); // Possible states: PREGAME, STARTING, ENDGAME and TESTING
         if (gameState == GameState.gameState.TESTING || gameState == GameState.gameState.PREGAME){
-            player.sendMessage(ChatColor.RED + "You died when it was not possible, please report this to an admin loser");
+            player.sendMessage(ChatColor.RED + "You died when it was not possible, please report this to an admin");
             return;
         }
         game.removePlayer(player); // Sets the players state to dead
