@@ -64,7 +64,7 @@ public final class HungerGamesCore extends JavaPlugin {
         gameCountDownTask = new GameCountDownTask(game, this);
         gameTimer = new GameTimer(this, game);
 
-        JoinAndLeave joinAndLeave = new JoinAndLeave(game, files, scorebord, gameTimer);
+        JoinAndLeave joinAndLeave = new JoinAndLeave(game, files, scorebord, gameTimer, databases);
         MovementFreeze movementFreeze = new MovementFreeze(game);
         GameCountDownTask task = new GameCountDownTask(game, this);
         PlayerDeathEvent playerDeathEvent = new PlayerDeathEvent(game, files, gameTimer, scorebord);
@@ -113,7 +113,7 @@ public final class HungerGamesCore extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        databases.cloaseConnection();
+        databases.closeConnection();
     }
 
     public HungerGamesCore getMain(){

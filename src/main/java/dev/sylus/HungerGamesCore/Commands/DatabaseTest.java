@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class DatabaseTest implements CommandExecutor {
 
@@ -17,7 +18,8 @@ public class DatabaseTest implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        commandSender.sendMessage(ChatColor.RED + databases.getDataTest());
+        Player player = (Player) commandSender;
+        commandSender.sendMessage(ChatColor.RED + String.valueOf(databases.getPlayerData(player.getUniqueId())));
         return true;
     }
 }

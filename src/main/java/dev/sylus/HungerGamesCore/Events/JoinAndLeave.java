@@ -1,6 +1,7 @@
 package dev.sylus.HungerGamesCore.Events;
 
 import dev.sylus.HungerGamesCore.Enums.GameState;
+import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Files.Files;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
@@ -19,11 +20,13 @@ public class JoinAndLeave implements Listener {
     Files files;
     Scorebord scorebord;
     GameTimer gameTimer;
-    public JoinAndLeave(Game gameInstance, Files filesInstance, Scorebord scorebordInstance, GameTimer gameTimerInstance){
+    Databases databases;
+    public JoinAndLeave(Game gameInstance, Files filesInstance, Scorebord scorebordInstance, GameTimer gameTimerInstance, Databases databasesInstance){
         game = gameInstance;
         files = filesInstance;
         scorebord = scorebordInstance;
         gameTimer = gameTimerInstance;
+        databases = databasesInstance;
     }
 
     @EventHandler
@@ -48,6 +51,9 @@ public class JoinAndLeave implements Listener {
             if (!(player.hasPermission("hungergamescore.gameModeImmune") || game.getState() == GameState.gameState.TESTING)){
                 player.setGameMode(GameMode.ADVENTURE); // The default game mode will be adventure, this is just in case
             }
+        }
+        if (!(databases.isInDatabase(player.getUniqueId()))){
+            databases.addNewPlayer(player.getUniqueId(), player.getName());
         }
         scorebord.refreshScorebordAll();
     }
