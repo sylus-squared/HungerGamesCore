@@ -36,7 +36,7 @@ public final class HungerGamesCore extends JavaPlugin {
     * Create the API
     * Remember to actually update this
     * yaml death
-    * CHEST RARITY
+    * CHEST RARITY (Fix the stupid NBT editor class not found exception)
     -----------------------------------------------------------------------
      */
 
@@ -84,8 +84,6 @@ public final class HungerGamesCore extends JavaPlugin {
         getCommand("giveChest").setExecutor(new GiveChest());
         getCommand("databaseTest").setExecutor(new DatabaseTest(databases)); // Remove this eventually
         getCommand("addPoints").setExecutor(new AddPoints(databases));
-
-
 
         saveDefaultConfig();
 

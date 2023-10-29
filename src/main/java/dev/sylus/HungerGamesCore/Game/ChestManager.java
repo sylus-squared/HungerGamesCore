@@ -61,7 +61,7 @@ public class ChestManager implements Listener {
                 if (game.getState() == GameState.gameState.SECONDHALF){
                     itemsSection = lootConfig.getConfigurationSection("secondHalfLootItems.COMMON");
                 }
-            }
+            } Need to get this working
 
          */
 
