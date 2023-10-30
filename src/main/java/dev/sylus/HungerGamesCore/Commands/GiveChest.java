@@ -2,7 +2,6 @@ package dev.sylus.HungerGamesCore.Commands;
 
 import dev.sylus.HungerGamesCore.Enums.ChestRarity;
 import dev.sylus.HungerGamesCore.Enums.GameState;
-import io.github.bananapuncher714.nbteditor.NBTEditor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -40,10 +39,14 @@ public class GiveChest implements TabCompleter, CommandExecutor {
         try {
             ItemStack item = new ItemStack(Material.CHEST);
             ItemMeta metta = item.getItemMeta();
-            metta.setDisplayName(ChatColor.DARK_PURPLE + args[0] + " chest");
+            if (args[0].equals("EPIC")){
+                metta.setDisplayName(ChatColor.DARK_PURPLE + args[0] + " chest");
+            } else if (args[0].equals("RARE")) {
+                metta.setDisplayName(ChatColor.BLUE + args[0]+ " chest");
+            } else {
+                metta.setDisplayName(ChatColor.GREEN + args[0] + " chest");
+            }
             item.setItemMeta(metta);
-            NBTEditor.set(item, args[0], "chestKey");
-
             player.getInventory().addItem(item);
         } catch (IllegalArgumentException exception){
             sender.sendMessage(ChatColor.RED + exception.toString());

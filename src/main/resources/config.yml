@@ -2,138 +2,149 @@ database:
   username: root
   password: root
 
-firstHalfLootItems:
-  common:
-    0:
-      material: SWEET_BERRIES
-      chance: 0.9
-      minAmount: 1
-      maxAmount: 6
-    1:
-      material: APPLE
-      chance: 0.8
-      minAmount: 1
-      maxAmount: 2
-    2:
-      material: POTATO
-      chance: 0.8
-      minAmount: 3
-      maxAmount: 6
-    3:
-      material: BEEF
-      chance: 0.8
-      minAmount: 1
-      maxAmount: 3
-    4:
-      material: SALMON
-      chance: 0.8
-      minAmount: 2
-      maxAmount: 4
-    5:
-      material: EGG
-      chance: 0.5
-      minAmount: 4
-      maxAmount: 10
-    6:
-      material: COOKED_COD
-      chance: 0.6
-      minAmount: 3
-      maxAmount: 6
-    7:
-      material: COOKED_SALMON
-      chance: 0.5
-      minAmount: 1
-      maxAmount: 2
-    8:
-      material:
-      chance: 0.6
-      minAmount: 1
-      maxAmount: 1
-    9:
-      material: BAKED_POTATO
-      chance: 0.7
-      minAmount: 1
-      maxAmount: 8
-    10:
-      material: LEATHER_BOOTS
-      chance: 0.5
-      minAmount: 1
-      maxAmount: 1
-    11:
-      material: EXPERIENCE_BOTTLE
-      chance: 0.6
-      minAmount: 1
-      maxAmount: 16
-    12:
-      material: LEATHER_HELMET
-      chance: 0.5
-      minAmount: 1
-      maxAmount: 1
-    13:
-      material: BAKED_POTATO
-      chance: 0.7
-      minAmount: 1
-      maxAmount: 8
-    14:
-      material: LEATHER_LEGGINGS
-      chance: 0.5
-      minAmount: 1
-      maxAmount: 1
-    15:
-      material: WOODEN_SWORD
-      chance: 0.6
-      minAmount: 1
-      maxAmount: 1
-    16:
-      material: ARROW
-      chance: 0.5
-      minAmount: 10
-      maxAmount: 25
-    17:
-      material: LEATHER_CHESTPLATE
-      chance: 0.5
-      minAmount: 1
-      maxAmount: 1
-    18:
-      material: BOWL
-      chance: 0.3
-      minAmount: 1
-      maxAmount: 4
-    19:
-      material: CHAINMAIL_BOOTS
-      chance: 0.2
-      minAmount: 1
-      maxAmount: 1
-    20:
-      material: CHAINMAIL_HELMET
-      chance: 0.2
-      minAmount: 1
-      maxAmount: 1
-    21:
-      material: CHAINMAIL_LEGGINGS
-      chance: 0.2
-      minAmount: 1
-      maxAmount: 1
-    22:
-      material: GOLDEN_BOOTS
-      chance: 0.1
-      minAmount: 1
-      maxAmount: 1
-    23:
-      material: CHAINMAIL_CHESTPLATE
-      chance: 0.2
-      minAmount: 1
-      maxAmount: 1
-    24:
-      material: GOLDEN_HELMET
-      chance: 0.1
-      minAmount: 1
-      maxAmount: 1
-    25:
-      material: GOLDEN_APPLE
-      chance: 0.1
-      minAmount: 1
-      maxAmount: 3
+COMMON:
+  0:
+    material: SWEET_BERRIES
+    chance: 0.9
+    minAmount: 1
+    maxAmount: 6
+  1:
+    material: APPLE
+    chance: 0.8
+    minAmount: 1
+    maxAmount: 2
+  2:
+    material: POTATO
+    chance: 0.8
+    minAmount: 3
+    maxAmount: 6
+  3:
+    material: BEEF
+    chance: 0.8
+    minAmount: 1
+    maxAmount: 3
+  4:
+    material: SALMON
+    chance: 0.8
+    minAmount: 2
+    maxAmount: 4
+  5:
+    material: EGG
+    chance: 0.5
+    minAmount: 4
+    maxAmount: 10
+  6:
+    material: COOKED_COD
+    chance: 0.6
+    minAmount: 3
+    maxAmount: 6
+  7:
+    material: COOKED_SALMON
+    chance: 0.5
+    minAmount: 1
+    maxAmount: 2
+  8:
+    material:
+    chance: 0.6
+    minAmount: 1
+    maxAmount: 1
+  9:
+    material: BAKED_POTATO
+    chance: 0.7
+    minAmount: 1
+    maxAmount: 8
+  10:
+    material: LEATHER_BOOTS
+    chance: 0.5
+    minAmount: 1
+    maxAmount: 1
+  11:
+    material: EXPERIENCE_BOTTLE
+    chance: 0.6
+    minAmount: 1
+    maxAmount: 16
+  12:
+    material: LEATHER_HELMET
+    chance: 0.5
+    minAmount: 1
+    maxAmount: 1
+  13:
+    material: BAKED_POTATO
+    chance: 0.7
+    minAmount: 1
+    maxAmount: 8
+  14:
+    material: LEATHER_LEGGINGS
+    chance: 0.5
+    minAmount: 1
+    maxAmount: 1
+  15:
+    material: WOODEN_SWORD
+    chance: 0.6
+    minAmount: 1
+    maxAmount: 1
+  16:
+    material: ARROW
+    chance: 0.5
+    minAmount: 10
+    maxAmount: 25
+  17:
+    material: LEATHER_CHESTPLATE
+    chance: 0.5
+    minAmount: 1
+    maxAmount: 1
+  18:
+    material: BOWL
+    chance: 0.3
+    minAmount: 1
+    maxAmount: 4
+  19:
+    material: CHAINMAIL_BOOTS
+    chance: 0.2
+    minAmount: 1
+    maxAmount: 1
+  20:
+    material: CHAINMAIL_HELMET
+    chance: 0.2
+    minAmount: 1
+    maxAmount: 1
+  21:
+    material: CHAINMAIL_LEGGINGS
+    chance: 0.2
+    minAmount: 1
+    maxAmount: 1
+  22:
+    material: GOLDEN_BOOTS
+    chance: 0.1
+    minAmount: 1
+    maxAmount: 1
+  23:
+    material: CHAINMAIL_CHESTPLATE
+    chance: 0.2
+    minAmount: 1
+    maxAmount: 1
+  24:
+    material: GOLDEN_HELMET
+    chance: 0.1
+    minAmount: 1
+    maxAmount: 1
+  25:
+    material: GOLDEN_APPLE
+    chance: 0.1
+    minAmount: 1
+    maxAmount: 3
+RARE:
+  0:
+    material: GOLDEN_HELMET
+    chance: 0.9
+    minAmount: 1
+    maxAmount: 6
+  1:
+    material: SWEET_BERRIES
+    chance: 0.9
+    minAmount: 1
+    maxAmount: 6
+
 secondHalfItems:
   1:
     material: GOLDEN_APPLE

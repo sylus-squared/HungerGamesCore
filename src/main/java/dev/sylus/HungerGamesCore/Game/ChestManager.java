@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
 
 public class ChestManager implements Listener {
     private final Set<Location> openedChests = new HashSet<>();
@@ -26,15 +27,16 @@ public class ChestManager implements Listener {
     Game game;
     ConfigurationSection itemsSection;
     FileConfiguration lootConfig;
+    String chestName;
 
     public ChestManager(FileConfiguration lootConfigInstance, Game gameInstance){
         game = gameInstance;
         lootConfig = lootConfigInstance;
 
         if (game.getState() == GameState.gameState.SECONDHALF){
-            itemsSection = lootConfig.getConfigurationSection("secondHalfLootItems");
+            itemsSection = lootConfig.getConfigurationSection("secondHalfLootItems.COMMON");
         } else {
-            itemsSection = lootConfig.getConfigurationSection("firstHalfLootItems");
+            itemsSection = lootConfig.getConfigurationSection("COMMON");
         }
 
         if (itemsSection == null){
@@ -56,14 +58,27 @@ public class ChestManager implements Listener {
             if (hasBeenOpened(chest.getLocation())) {
                 return;
             }
+            Bukkit.getLogger().log(Level.INFO, chestName);
+            if (chestName == null){
+                chestName = "COMMON";
+            }
+            Bukkit.getLogger().log(Level.INFO, chestName);
 
-        /*    if (Objects.equals(NBTEditor.getString(holder, "chestKey", "value"), "EGGTHROW")){
-                if (game.getState() == GameState.gameState.SECONDHALF){
-                    itemsSection = lootConfig.getConfigurationSection("secondHalfLootItems.COMMON");
-                }
-            } Need to get this working
+            chestName = chestName.replace(" chest", "");
 
-         */
+            if (game.getState() == GameState.gameState.SECONDHALF){
+                itemsSection = lootConfig.getConfigurationSection("secondHalfLootItems." + chestName);
+            } else {
+                itemsSection = lootConfig.getConfigurationSection(chestName);
+            }
+            Bukkit.getLogger().log(Level.INFO, chestName + " Chest name");
+            Bukkit.getLogger().log(Level.INFO, String.valueOf(itemsSection));
+            Bukkit.getLogger().log(Level.WARNING, String.valueOf(itemsSection.getKeys(false)) + " Items section keys");
+
+            for (String key : itemsSection.getKeys(false)){
+                ConfigurationSection section = itemsSection.getConfigurationSection(key);
+                lootItems.add(new LootItem(section));
+            }
 
             markAsOpened(chest.getLocation());
             fill(chest.getBlockInventory());
