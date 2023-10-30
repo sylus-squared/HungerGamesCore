@@ -27,15 +27,15 @@ public class GameRunTask extends BukkitRunnable {
     @Override
     public void run() {
         game.setMovement(false);
-        if (startIn <= 1) {
+        if (startIn <= 0) {
             this.cancel();
             game.setState(GameState.gameState.ACTIVE, "Game run task");
             Bukkit.broadcastMessage("§a[!] The game has started.");
             game.setMovement(true);
             new GameTimer(main, game, databases).runTaskTimer(main, 0, 20);
-        } else {
+        } else if (startIn == 10 || startIn <= 5) {
             main.refreshScorebordAll();
-            Bukkit.broadcastMessage("§cThe game will begin in §e" + startIn + " §csecond" + (startIn == 1 ? "" : "s"));
+            Bukkit.broadcastMessage("§eThe game will begin in §c" + startIn + " §csecond" + (startIn == 1 ? "" : "s"));
             startIn--;
             for (Player players: Bukkit.getOnlinePlayers()) {
                 players.playSound(players.getLocation(), Sound.BLOCK_TRIPWIRE_ATTACH, 1, 1);

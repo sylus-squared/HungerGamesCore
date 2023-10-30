@@ -68,7 +68,7 @@ public final class HungerGamesCore extends JavaPlugin {
         PlayerDeathEvent playerDeathEvent = new PlayerDeathEvent(game, files, gameTimer, scorebord);
 
         // Register the events
-        ChestManager chestManager = new ChestManager(getConfig(), game);
+        ChestManager chestManager = new ChestManager(game, files);
         getServer().getPluginManager().registerEvents(chestManager, this);
         getServer().getPluginManager().registerEvents(joinAndLeave, this);
         getServer().getPluginManager().registerEvents(movementFreeze, this);

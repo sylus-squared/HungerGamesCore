@@ -1,8 +1,10 @@
 package dev.sylus.HungerGamesCore.Game;
 
 import dev.sylus.HungerGamesCore.Enums.GameState;
+import dev.sylus.HungerGamesCore.Files.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
@@ -14,7 +16,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -28,29 +32,16 @@ public class ChestManager implements Listener {
     ConfigurationSection itemsSection;
     FileConfiguration lootConfig;
     String chestName;
+    Files files;
+    Set<String> keys;
 
-    public ChestManager(FileConfiguration lootConfigInstance, Game gameInstance){
+    public ChestManager(Game gameInstance, Files filesInstance){
         game = gameInstance;
-        lootConfig = lootConfigInstance;
-
-        if (game.getState() == GameState.gameState.SECONDHALF){
-            itemsSection = lootConfig.getConfigurationSection("secondHalfLootItems.COMMON");
-        } else {
-            itemsSection = lootConfig.getConfigurationSection("COMMON");
-        }
-
-        if (itemsSection == null){
-            Bukkit.getLogger().severe("lootItems does not exist in the config.yml");
-        }
-
-        for (String key : itemsSection.getKeys(false)){
-            ConfigurationSection section = itemsSection.getConfigurationSection(key);
-            lootItems.add(new LootItem(section));
-        }
+        files = filesInstance;
     }
 
     @EventHandler
-    private void  onChestOpen(InventoryOpenEvent event){
+    private void onChestOpen(InventoryOpenEvent event){
         InventoryHolder holder = event.getInventory().getHolder();
 
         if (holder instanceof Chest){
@@ -58,30 +49,35 @@ public class ChestManager implements Listener {
             if (hasBeenOpened(chest.getLocation())) {
                 return;
             }
-            Bukkit.getLogger().log(Level.INFO, chestName);
+            chestName = chest.getCustomName();
+            Bukkit.getLogger().log(Level.WARNING, chestName);
             if (chestName == null){
+                Bukkit.getLogger().log(Level.SEVERE, "Chest name is null");
                 chestName = "COMMON";
             }
-            Bukkit.getLogger().log(Level.INFO, chestName);
-
+            chestName = chestName.replaceAll("§[a-f0-9]", "");
             chestName = chestName.replace(" chest", "");
 
             if (game.getState() == GameState.gameState.SECONDHALF){
-                itemsSection = lootConfig.getConfigurationSection("secondHalfLootItems." + chestName);
+                itemsSection = files.getConfig("worldData.yml").getConfigurationSection("secondHalfItems." + chestName);
             } else {
-                itemsSection = lootConfig.getConfigurationSection(chestName);
+                itemsSection = files.getConfig("worldData.yml").getConfigurationSection("firstHalfItems." + chestName); // chestName
             }
-            Bukkit.getLogger().log(Level.INFO, chestName + " Chest name");
-            Bukkit.getLogger().log(Level.INFO, String.valueOf(itemsSection));
-            Bukkit.getLogger().log(Level.WARNING, String.valueOf(itemsSection.getKeys(false)) + " Items section keys");
+            Bukkit.getLogger().log(Level.WARNING, String.valueOf(itemsSection));
 
-            for (String key : itemsSection.getKeys(false)){
-                ConfigurationSection section = itemsSection.getConfigurationSection(key);
-                lootItems.add(new LootItem(section));
+            if (itemsSection != null){
+                keys = itemsSection.getKeys(false);
+                for (String key : keys){
+                    ConfigurationSection section = itemsSection.getConfigurationSection(key);
+                    lootItems.add(new LootItem(section));
+                }
+
+                markAsOpened(chest.getLocation());
+                fill(chest.getBlockInventory());
+            } else {
+                Bukkit.getLogger().log(Level.SEVERE, "No keys found in section " + chestName);
             }
 
-            markAsOpened(chest.getLocation());
-            fill(chest.getBlockInventory());
         } else if (holder instanceof DoubleChest) {
             DoubleChest chest = (DoubleChest) holder;
             if (hasBeenOpened(chest.getLocation())) {
@@ -107,6 +103,10 @@ public class ChestManager implements Listener {
             used.add(randomItem);
             if (randomItem.shouldFill(random)){
                 ItemStack itemStack = randomItem.make(random);
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                itemMeta.setUnbreakable(true);
+                itemStack.setItemMeta(itemMeta);
                 inventory.setItem(slotIndex, itemStack);
             }
         }

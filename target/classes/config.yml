@@ -1,7 +1,3 @@
-database:
-  username: root
-  password: root
-
 COMMON:
   0:
     material: SWEET_BERRIES
@@ -156,3 +152,7 @@ secondHalfItems:
     chance: 0.8
     minAmount: 1
     maxAmount: 3
+
+database:
+  username: root
+  password: root

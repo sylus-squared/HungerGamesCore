@@ -40,7 +40,7 @@ public class GameTimer extends BukkitRunnable {
         files = new Files(main, "worldData.yml");
         databases = databasesInstance;
         scorebord = new Scorebord(game, files, databases, this, main);
-        chestManager = new ChestManager(main.getConfig(), game);
+        chestManager = new ChestManager(game, files);
     }
 
     @Override
