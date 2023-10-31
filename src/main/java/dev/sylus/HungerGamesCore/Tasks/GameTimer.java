@@ -59,15 +59,15 @@ public class GameTimer extends BukkitRunnable {
                 refillTimer = -1;
                 scorebord.refreshScorebordAll();
             } else if (refillTimer == 60) {
-                Bukkit.broadcastMessage("§cChests will be refilled in §e60 §cSeconds");
+                Bukkit.broadcastMessage("§eChests will be refilled in §c60 §eSeconds");
                 refillTimer--;
                 scorebord.refreshScorebordAll();
             } else if (refillTimer == 30) {
-                Bukkit.broadcastMessage("§cChests will be refilled in §e30 §cseconds");
+                Bukkit.broadcastMessage("§eChests will be refilled in §c30 §eseconds");
                 refillTimer--;
                 scorebord.refreshScorebordAll();
             } else if (refillTimer <= 5 && refillTimer >= 1) {
-                Bukkit.broadcastMessage("§cChests will be refilled in §e" + refillTimer + " §cSeconds");
+                Bukkit.broadcastMessage("§eChests will be refilled in §c" + refillTimer + " §eSeconds");
                 refillTimer--;
                 scorebord.refreshScorebordAll();
                 for (Player players: Bukkit.getOnlinePlayers()){
@@ -91,7 +91,7 @@ public class GameTimer extends BukkitRunnable {
                 double x = files.getDeathmatchSpawnX();
                 double y = files.getDeathmatchSpawnY();
                 double z = files.getDeathmatchSpawnZ();
-                Location location = new Location(world, x, y, z);
+                Location location = new Location(Bukkit.getWorld("world"), x, y, z);
 
                 for (Player players: Bukkit.getOnlinePlayers()){
                     players.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 5));
