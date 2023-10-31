@@ -35,12 +35,12 @@ public class GameRunTask extends BukkitRunnable {
             new GameTimer(main, game, databases).runTaskTimer(main, 0, 20);
         } else if (startIn == 10 || startIn <= 5) {
             main.refreshScorebordAll();
-            Bukkit.broadcastMessage("§eThe game will begin in §c" + startIn + " §csecond" + (startIn == 1 ? "" : "s"));
-            startIn--;
+            Bukkit.broadcastMessage("§eThe game will begin in §c" + startIn + " §esecond" + (startIn == 1 ? "" : "s"));
             for (Player players: Bukkit.getOnlinePlayers()) {
                 players.playSound(players.getLocation(), Sound.BLOCK_TRIPWIRE_ATTACH, 1, 1);
             }
         }
+        startIn--;
     }
 
 }

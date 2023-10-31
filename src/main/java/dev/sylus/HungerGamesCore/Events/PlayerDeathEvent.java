@@ -1,6 +1,7 @@
 package dev.sylus.HungerGamesCore.Events;
 
 import dev.sylus.HungerGamesCore.Enums.GameState;
+import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Files.Files;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
@@ -22,12 +23,14 @@ public class PlayerDeathEvent implements Listener {
     String killerName;
     GameTimer gameTimer;
     Scorebord scorebord;
+    Databases databases;
 
-    public PlayerDeathEvent(Game gameInstance, Files filesInstance, GameTimer gameTimerInstance, Scorebord scorebordInstance){
+    public PlayerDeathEvent(Game gameInstance, Files filesInstance, GameTimer gameTimerInstance, Scorebord scorebordInstance, Databases databasesInstance){
         game = gameInstance;
         files = filesInstance;
         gameTimer = gameTimerInstance;
         scorebord = scorebordInstance;
+        databases = databasesInstance;
     }
 
     @EventHandler

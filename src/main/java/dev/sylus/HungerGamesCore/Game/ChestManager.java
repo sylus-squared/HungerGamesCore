@@ -59,9 +59,9 @@ public class ChestManager implements Listener {
             chestName = chestName.replace(" chest", "");
 
             if (game.getState() == GameState.gameState.SECONDHALF){
-                itemsSection = files.getConfig("worldData.yml").getConfigurationSection("secondHalfItems." + chestName);
+                itemsSection = files.getConfig("worldData.yml").getConfigurationSection("secondHalfItems." + chestName); // Using worldData allows for maps to have different loot tables
             } else {
-                itemsSection = files.getConfig("worldData.yml").getConfigurationSection("firstHalfItems." + chestName); // chestName
+                itemsSection = files.getConfig("worldData.yml").getConfigurationSection("firstHalfItems." + chestName);
             }
             Bukkit.getLogger().log(Level.WARNING, String.valueOf(itemsSection));
 

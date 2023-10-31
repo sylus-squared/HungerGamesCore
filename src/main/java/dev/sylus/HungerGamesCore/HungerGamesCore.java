@@ -65,7 +65,7 @@ public final class HungerGamesCore extends JavaPlugin {
         JoinAndLeave joinAndLeave = new JoinAndLeave(game, files, scorebord, gameTimer, databases);
         MovementFreeze movementFreeze = new MovementFreeze(game);
         GameCountDownTask task = new GameCountDownTask(game, this);
-        PlayerDeathEvent playerDeathEvent = new PlayerDeathEvent(game, files, gameTimer, scorebord);
+        PlayerDeathEvent playerDeathEvent = new PlayerDeathEvent(game, files, gameTimer, scorebord, databases);
 
         // Register the events
         ChestManager chestManager = new ChestManager(game, files);
@@ -84,6 +84,7 @@ public final class HungerGamesCore extends JavaPlugin {
         getCommand("giveChest").setExecutor(new GiveChest());
         getCommand("databaseTest").setExecutor(new DatabaseTest(databases)); // Remove this eventually
         getCommand("addPoints").setExecutor(new AddPoints(databases));
+        getCommand("resetPoints").setExecutor(new ResetPoints(databases, scorebord));
 
         saveDefaultConfig();
 

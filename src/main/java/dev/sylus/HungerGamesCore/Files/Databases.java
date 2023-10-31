@@ -180,6 +180,45 @@ public class Databases {
         }
     }
 
+    public void addPoints(UUID uuid, int pointsToAdd){
+        if (connection == null){
+            initialiseDatabase();
+        }
+        try {
+            ArrayList<String> currentPoints = getPlayerData(uuid);
+            pointsToAdd = pointsToAdd + Integer.parseInt(currentPoints.get(2));
+            String statement = "UPDATE dataTable SET Points = ? WHERE UUID = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, String.valueOf(pointsToAdd));
+            preparedStatement.setString(2, uuid.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException error) {
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
+        }
+    }
+
+    public void resetPoints(UUID uuid){
+        if (connection == null){
+            initialiseDatabase();
+        }
+        try {
+            String statement = "UPDATE dataTable SET Points = ? WHERE UUID = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, String.valueOf(0));
+            preparedStatement.setString(2, uuid.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException error) {
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
+        }
+
+    }
+
     public String getTotalPoints(Player player){
         ArrayList<String> data = getPlayerData(player.getUniqueId()); // Name, Kills, Points, Score What's the difference between points and score?
         return data.get(2);
