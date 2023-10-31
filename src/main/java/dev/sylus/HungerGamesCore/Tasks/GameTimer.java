@@ -107,15 +107,17 @@ public class GameTimer extends BukkitRunnable {
                 this.cancel();
                 this.stopGame(false);
                 return;
-            } else if (deathmatchCountdown == 60 || deathmatchCountdown == 30 || deathmatchCountdown == 15 || deathmatchCountdown <= 10) {
-                Bukkit.broadcastMessage("§aA draw will be called in §c" + deathmatchCountdown + " §aseconds");
-            } else if (deathmatchCountdown <= 114 && deathmatchCountdown >= 109) {
-                Bukkit.broadcastMessage("§aPlayers will become vulnerable in §c" + deathmatchCountdown + " §aseconds");
+            } else if (deathmatchCountdown == 60 || deathmatchCountdown == 30 || deathmatchCountdown == 15 || deathmatchCountdown == 10 || deathmatchCountdown <= 5) {
+                Bukkit.broadcastMessage("§eA draw will be called in §c" + deathmatchCountdown + " §eseconds");
+            } else if (deathmatchCountdown <= 114 && deathmatchCountdown >= 110) {
+                Bukkit.broadcastMessage("§ePlayers will become vulnerable in §c" + (114 - deathmatchCountdown + 1) + " §eseconds");
+            }
+            if (deathmatchCountdown == 108){
                 for (Player players: Bukkit.getOnlinePlayers()){
-                    if (deathmatchCountdown == 108){
-                        players.playSound(players.getLocation(), Sound.EVENT_RAID_HORN, 1, 1); // Replace this with the hypixel zombies one
-                    }
+                    players.playSound(players.getLocation(), Sound.ENTITY_ZOMBIE_HORSE_DEATH, 1, 1); // Replace this with the hypixel zombies one
                 }
+                Bukkit.broadcastMessage("§ePlayers are now vulnerable");
+                game.setVunrability(true);
             }
             deathmatchCountdown--;
             scorebord.refreshScorebordAll();

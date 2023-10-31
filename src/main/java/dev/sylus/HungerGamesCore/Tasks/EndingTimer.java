@@ -59,18 +59,16 @@ public class EndingTimer extends BukkitRunnable {
                 fireworkMeta.addEffect(builder.with(FireworkEffect.Type.BALL).build());
                 fireworkMeta.setPower(1);
                 firework.setFireworkMeta(fireworkMeta);
-            } else {
-                Firework firework = (Firework) world.spawn(location, Firework.class);
-                FireworkMeta fireworkMeta = firework.getFireworkMeta();
-                FireworkEffect.Builder builder = FireworkEffect.builder();
-
-                fireworkMeta.addEffect(builder.flicker(true).withColor(Color.RED).build());
-                fireworkMeta.addEffect(builder.trail(true).build());
-                //  fireworkMeta.addEffect(builder.withFade(Color.ORANGE).build()); scrapped :(
-                fireworkMeta.addEffect(builder.with(FireworkEffect.Type.BALL_LARGE).build());
-                fireworkMeta.setPower(5);
-                firework.setFireworkMeta(fireworkMeta);
             }
+            Firework firework = (Firework) world.spawn(location, Firework.class);
+            FireworkMeta fireworkMeta = firework.getFireworkMeta();
+            FireworkEffect.Builder builder = FireworkEffect.builder();
+
+            fireworkMeta.addEffect(builder.flicker(true).withColor(Color.RED).build());
+            fireworkMeta.addEffect(builder.trail(true).build());
+            fireworkMeta.addEffect(builder.with(FireworkEffect.Type.BALL_LARGE).build());
+            fireworkMeta.setPower(5);
+            firework.setFireworkMeta(fireworkMeta);
         }
 
 

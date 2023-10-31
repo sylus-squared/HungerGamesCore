@@ -46,6 +46,11 @@ commands:
     usage: /addPoints
     description: Adds some points to the player who sent it
 
+  resetPoints:
+    usage: /resetPoints <args>
+    description: This command sets resets the points for a player or all players
+    permission: hungergamescore.resetPoints
+
 
 permissions:
   hungergamescore.startgame:
@@ -69,6 +74,8 @@ permissions:
   hungergamescore.gameModeImmune:
     description: Allows the makes the player immune to being set to adventure mode when they join
 
+  hungergamescore.resetPoints:
+    description: Allows the makes the player to use the command /resetPoints
 
 
 
