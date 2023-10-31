@@ -127,7 +127,7 @@ public class GameTimer extends BukkitRunnable {
             }
             if (deathmatchCountdown == 108){
                 for (Player players: Bukkit.getOnlinePlayers()){
-                    players.playSound(players.getLocation(), Sound.ENTITY_ZOMBIE_HORSE_DEATH, 1, 1); // Replace this with the hypixel zombies one
+                    players.playSound(players.getLocation(), Sound.ENTITY_ZOMBIE_HORSE_DEATH, 1, 1);
                 }
                 Bukkit.broadcastMessage("§a[!] Players are now vulnerable");
                 game.setVunrability(true);
