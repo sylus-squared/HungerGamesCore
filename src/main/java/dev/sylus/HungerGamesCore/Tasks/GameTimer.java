@@ -16,6 +16,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.UUID;
 import java.util.logging.Level;
 
 public class GameTimer extends BukkitRunnable {
@@ -160,6 +161,7 @@ public class GameTimer extends BukkitRunnable {
     }
 
     public void stopGame(Boolean stoppedByCommand){
+        game.setVunrability(false);
         game.setState(GameState.gameState.ENDING, "Game timer stopped game");
         if (stoppedByCommand){
             for (Player players: Bukkit.getOnlinePlayers()){
@@ -171,6 +173,8 @@ public class GameTimer extends BukkitRunnable {
             }
         } else if (game.getPlayerNumbers() == 1){
             playerName = game.getLastPlayer().getName();
+            databases.addPoints(UUID.randomUUID(), 10);
+            game.getLastPlayer().sendMessage("§eYou were given §c10 §epoints for winning");
             for (Player players: Bukkit.getOnlinePlayers()){
                 players.sendTitle(ChatColor.RED + playerName + " WINS", ChatColor.YELLOW + "You will return to the lobby in 20 seconds", 10, 60, 10);
             }
@@ -182,8 +186,12 @@ public class GameTimer extends BukkitRunnable {
             for (Player players : Bukkit.getOnlinePlayers()) {
                 players.sendTitle(ChatColor.RED + "Its a DRAW", ChatColor.YELLOW + "You will return to the lobby in 20 seconds", 10, 60, 10);
                 players.sendMessage(ChatColor.RED + "Both players will receive 5 points for drawing");
-                scorebord.refreshScorebordAll();
+                if (game.isPlayerAlive(players)){
+                    players.sendMessage("§eYou were given §c5 §epoints for drawing");
+                    databases.addPoints(players.getUniqueId(), 5);
+                }
             }
+            scorebord.refreshScorebordAll();
         }
     }
 

@@ -39,9 +39,9 @@ public class Databases {
         dataTable (table duh)
             UUID: varchar(255)
             Name: varchar(255)
-            Kills: int(255)
-            Points: int(255)
-            Score: int(255)
+            Kills: int(255)  // Not used
+            Points: int(255) // Points that save across all games
+            Score: int(255) // Not used
      */
 
 
@@ -205,10 +205,43 @@ public class Databases {
             initialiseDatabase();
         }
         try {
-            String statement = "UPDATE dataTable SET Points = ? WHERE UUID = ?;";
+            String statement = "UPDATE dataTable SET Points = 0, SET Score = 0 WHERE UUID = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setString(1, String.valueOf(0));
-            preparedStatement.setString(2, uuid.toString());
+            preparedStatement.setString(1, String.valueOf(uuid));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException error) {
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
+        }
+    }
+
+    public void resetLocalPoints(UUID uuid){
+        if (connection == null){
+            initialiseDatabase();
+        }
+        try {
+            String statement = "UPDATE dataTable SET Score = 0 WHERE UUID = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, String.valueOf(uuid));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException error) {
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
+        }
+    }
+
+    public void resetAllData(UUID uuid){
+        if (connection == null){
+            initialiseDatabase();
+        }
+        try {
+            String statement = "UPDATE dataTable SET Kills = 0, Points = 0, SET Score = 0 WHERE UUID = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, String.valueOf(uuid));
             ResultSet resultSet = preparedStatement.executeQuery();
 
             resultSet.close();
@@ -218,6 +251,7 @@ public class Databases {
         }
 
     }
+
 
     public String getTotalPoints(Player player){
         ArrayList<String> data = getPlayerData(player.getUniqueId()); // Name, Kills, Points, Score What's the difference between points and score?
@@ -231,10 +265,6 @@ public class Databases {
     public String getKills(Player player){
         ArrayList<String> data = getPlayerData(player.getUniqueId()); // Name, Kills, Points, Score
         return data.get(1);
-    }
-
-    public void updatePoints(Player player, int newPoints){
-        // This will replace the old points from the database with the new ones
     }
 
     public void updateKills(Player player, int newKills){

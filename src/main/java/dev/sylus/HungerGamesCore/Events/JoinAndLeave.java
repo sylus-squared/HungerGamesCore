@@ -32,6 +32,13 @@ public class JoinAndLeave implements Listener {
     @EventHandler
     public void playerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
+
+        Bukkit.getLogger().log(Level.WARNING, "Trying to add player data to localData");
+        if (!(game.isInLocalData(player.getUniqueId()))){
+            game.addPlayerToLocalDataData(player.getUniqueId());
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(game.getLocalPlayerData(player.getUniqueId())));
+        }
+
         System.out.println(game.getPlayerNumbers() + "PLAYERNUMBERS");
         if (game.getPlayerNumbers() >= files.getPlayerCap()){
             player.sendMessage(ChatColor.RED + "The game is full, you have been put into spectator mode");
@@ -47,7 +54,7 @@ public class JoinAndLeave implements Listener {
             game.addPlayer(player);
             scorebord.refreshScorebordAll();
             player.sendMessage(ChatColor.LIGHT_PURPLE + "The game will start shortly, please wait");
-            player.sendMessage(ChatColor.RED + "Currently playing build number: " + ChatColor.YELLOW + "122" + ChatColor.RED + " and testing the database system"); // Change this to colour codes at some point
+            player.sendMessage(ChatColor.RED + "Currently playing build number: " + ChatColor.YELLOW + "163" + ChatColor.RED + " and testing the local data system"); // Change this to colour codes at some point
             if (!(player.hasPermission("hungergamescore.gameModeImmune") || game.getState() == GameState.gameState.TESTING)){
                 player.setGameMode(GameMode.ADVENTURE); // The default game mode will be adventure, this is just in case
             }
@@ -55,6 +62,7 @@ public class JoinAndLeave implements Listener {
         if (!(databases.isInDatabase(player.getUniqueId()))){
             databases.addNewPlayer(player.getUniqueId(), player.getName());
         }
+
         scorebord.refreshScorebordAll();
     }
 

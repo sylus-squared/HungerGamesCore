@@ -130,7 +130,7 @@ public class Scorebord implements Listener {
             Score score2 = obj.getScore("§bPlayers alive§f: " + ChatColor.GREEN + game.getPlayerNumbers());
             score2.setScore(8);
 
-            Score score3 = obj.getScore("§6Kills§f: " + databases.getKills(player));
+            Score score3 = obj.getScore("§6Kills§f: " + game.getLocalPlayerData(player.getUniqueId()).get(1));
             score3.setScore(7);
 
             Score score4 = obj.getScore("§fNext event");
@@ -142,7 +142,7 @@ public class Scorebord implements Listener {
             Score score6 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━");
             score6.setScore(4);
 
-            Score score7 = obj.getScore("§aGames score§f: " + databases.getGamePoints(player));
+            Score score7 = obj.getScore("§aGames score§f: " + game.getLocalPlayerData(player.getUniqueId()).get(2));
             score7.setScore(3);
 
             Score score8 = obj.getScore("§aTotal score§f: " + databases.getTotalPoints(player));
@@ -235,7 +235,7 @@ public class Scorebord implements Listener {
             // obj.setDisplayName("");
             obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-            Score score = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━━━━§7");
+            Score score = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━§7");
             score.setScore(10);
 
             Score score1 = obj.getScore("§bGame§f: " + numberString + "/§b3");
@@ -244,7 +244,7 @@ public class Scorebord implements Listener {
             Score score2 = obj.getScore("§bPlayers alive§f: " + ChatColor.GREEN + game.getPlayerNumbers());
             score2.setScore(8);
 
-            Score score3 = obj.getScore("§6Kills§f: " + databases.getKills(players));
+            Score score3 = obj.getScore("§6Kills§f: " + game.getLocalPlayerData(players.getUniqueId()).get(1));
             score3.setScore(7);
 
             Score score4 = obj.getScore("§fNext event");
@@ -253,16 +253,16 @@ public class Scorebord implements Listener {
             Score score5 = obj.getScore(ChatColor.RED + currentEvent);
             score5.setScore(5);
 
-            Score score6 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━━━━"); // This is not showing for some reason
+            Score score6 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━"); // This is not showing for some reason
             score6.setScore(4);
 
-            Score score7 = obj.getScore("§aGames score§f: " + databases.getGamePoints(players));
+            Score score7 = obj.getScore("§aGames score§f: " + game.getLocalPlayerData(players.getUniqueId()).get(2));
             score7.setScore(3);
 
             Score score8 = obj.getScore("§aTotal score§f: " + databases.getTotalPoints(players));
             score8.setScore(2);
 
-            Score score9 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━━━━§c");
+            Score score9 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━§c");
             score9.setScore(1);
 
             Score score10 = obj.getScore(ChatColor.BLUE + serverCode);

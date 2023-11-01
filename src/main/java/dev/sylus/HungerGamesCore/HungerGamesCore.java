@@ -97,6 +97,7 @@ public final class HungerGamesCore extends JavaPlugin {
         game.setState(GameState.gameState.TESTING, "Main class");
         logger.log(Level.INFO, "CoreLoaded");
         logger.log(Level.INFO, "Game state changed to: " + game.getState());
+        game.setVunrability(false); // Stop people being able to damage each other before the game starts
 
         try {
             File myObj = new File("filename.txt");

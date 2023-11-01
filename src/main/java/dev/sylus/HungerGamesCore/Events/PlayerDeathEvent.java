@@ -69,12 +69,17 @@ public class PlayerDeathEvent implements Listener {
         if (!(event.getEntity().getKiller() == null)){
             this.killer = event.getEntity().getKiller();
             this.killerName = killer.getName();
+
+            game.addKills(killer.getUniqueId(), 1);
+
             for (Player players: Bukkit.getOnlinePlayers()){
                 if (game.isPlayerAlive(players)){ // I could just iterate over the list of players alive, but I can't be bothered
                     if (players == killer){
+                        game.addPoints(killer.getUniqueId(), 5); // ads points to local data
                         databases.addPoints(killer.getUniqueId(), 5);
                         players.sendMessage( "§eYou got §c5 §epoints for a kill");
                     } else {
+                        game.addPoints(players.getUniqueId(), 1);
                         databases.addPoints(players.getUniqueId(), 1);
                         players.sendMessage("§eYou got §c1 §e point for surviving");
                     }

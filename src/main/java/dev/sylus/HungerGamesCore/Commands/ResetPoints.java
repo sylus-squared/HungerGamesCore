@@ -21,8 +21,12 @@ public class ResetPoints implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        sender.sendMessage(ChatColor.RED + "WARNING THIS COMMAND IS DESTRUCTIVE AND ITS USE WILL BE LOGGED");
         if (args.length < 1){
+            sender.sendMessage(ChatColor.RED + "Incorrect use of the command");
+            Bukkit.getLogger().log(Level.SEVERE, "Warning, resetpoints command used incorectley");
+        }
+        sender.sendMessage(ChatColor.RED + "WARNING THIS COMMAND IS DESTRUCTIVE AND ITS USE WILL BE LOGGED");
+        if (args[0].equals("ALL")){
             for (Player players: Bukkit.getOnlinePlayers()){
                 databases.resetPoints(players.getUniqueId());
             }
