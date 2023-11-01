@@ -48,25 +48,34 @@ public class EndingTimer extends BukkitRunnable {
         world = player.getWorld();
         location = player.getLocation();
 
-            Firework firework = (Firework) world.spawn(location, Firework.class);
-            FireworkMeta fireworkMeta = firework.getFireworkMeta();
-            FireworkEffect.Builder builder = FireworkEffect.builder();
+        Firework firework = (Firework) world.spawn(location, Firework.class);
+        FireworkMeta fireworkMeta = firework.getFireworkMeta();
+        FireworkEffect.Builder builder = FireworkEffect.builder();
 
-            fireworkMeta.addEffect(builder.flicker(true).withColor(Color.PURPLE, Color.WHITE).build());
-            fireworkMeta.addEffect(builder.trail(false).build());
-            //  fireworkMeta.addEffect(builder.withFade(Color.ORANGE).build()); scrapped :(
-            fireworkMeta.addEffect(builder.with(FireworkEffect.Type.BALL).build());
-            fireworkMeta.setPower(1);
-            firework.setFireworkMeta(fireworkMeta);
+        fireworkMeta.addEffect(builder.flicker(true).withColor(Color.PURPLE, Color.WHITE).build());
+        fireworkMeta.addEffect(builder.trail(false).build());
+        //  fireworkMeta.addEffect(builder.withFade(Color.ORANGE).build()); scrapped :(
+        fireworkMeta.addEffect(builder.with(FireworkEffect.Type.BALL).build());
+        fireworkMeta.setPower(1);
+        firework.setFireworkMeta(fireworkMeta);
 
-            firework = (Firework) world.spawn(location, Firework.class);
-            fireworkMeta = firework.getFireworkMeta();
+        firework = (Firework) world.spawn(location, Firework.class);
+        fireworkMeta = firework.getFireworkMeta();
 
-            fireworkMeta.addEffect(builder.flicker(true).withColor(Color.RED).build());
-            fireworkMeta.addEffect(builder.trail(true).build());
-            fireworkMeta.addEffect(builder.with(FireworkEffect.Type.BALL_LARGE).build());
-            fireworkMeta.setPower(5);
-            firework.setFireworkMeta(fireworkMeta);
+        fireworkMeta.addEffect(builder.flicker(true).withColor(Color.RED).build());
+        fireworkMeta.addEffect(builder.trail(true).build());
+        fireworkMeta.addEffect(builder.with(FireworkEffect.Type.BALL_LARGE).build());
+        fireworkMeta.setPower(5);
+        firework.setFireworkMeta(fireworkMeta);
+
+        firework = (Firework) world.spawn(location, Firework.class);
+        fireworkMeta = firework.getFireworkMeta();
+
+        fireworkMeta.addEffect(builder.flicker(true).withColor(Color.RED).build());
+        fireworkMeta.addEffect(builder.trail(true).build());
+        fireworkMeta.addEffect(builder.with(FireworkEffect.Type.BALL_LARGE).build());
+        fireworkMeta.setPower(5);
+        firework.setFireworkMeta(fireworkMeta);
         }
 
 

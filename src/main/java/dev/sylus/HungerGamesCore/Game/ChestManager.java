@@ -49,8 +49,7 @@ public class ChestManager implements Listener {
             }
             chestName = chest.getCustomName();
             Bukkit.getLogger().log(Level.WARNING, chestName);
-            if (chestName == null){
-                Bukkit.getLogger().log(Level.SEVERE, "Chest name is null");
+            if (chestName == null || chestName.equals("chest")){
                 chestName = "COMMON";
             }
             chestName = chestName.replaceAll("§[a-f0-9]", "");
