@@ -131,6 +131,10 @@ public class Game {
         this.doDamage = vulnerability;
     }
 
+    public boolean isPlayerAlive(Player player){
+        return playersAlive.contains(player);
+    }
+
 
 
 }

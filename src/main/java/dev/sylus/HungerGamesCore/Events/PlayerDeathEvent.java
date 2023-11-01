@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import java.util.List;
 import java.util.logging.Level;
 
 public class PlayerDeathEvent implements Listener {
@@ -68,6 +69,18 @@ public class PlayerDeathEvent implements Listener {
         if (!(event.getEntity().getKiller() == null)){
             this.killer = event.getEntity().getKiller();
             this.killerName = killer.getName();
+            for (Player players: Bukkit.getOnlinePlayers()){
+                if (game.isPlayerAlive(players)){ // I could just iterate over the list of players alive, but I can't be bothered
+                    if (players == killer){
+                        databases.addPoints(killer.getUniqueId(), 5);
+                        players.sendMessage( "§eYou got §c5 §epoints for a kill");
+                    } else {
+                        databases.addPoints(players.getUniqueId(), 1);
+                        players.sendMessage("§eYou got §c1 §e point for surviving");
+                    }
+                }
+
+            }
         }
 
 
