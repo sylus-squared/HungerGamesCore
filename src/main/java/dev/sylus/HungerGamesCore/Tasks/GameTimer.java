@@ -34,13 +34,13 @@ public class GameTimer extends BukkitRunnable {
 
     int deathmatchCountdown = 120;
 
-    public GameTimer(HungerGamesCore mainInstance, Game gameInstance, Databases databasesInstance){
+    public GameTimer(HungerGamesCore mainInstance, Game gameInstance, Databases databasesInstance, ChestManager chestManagerInstance){
         main = mainInstance;
         game = gameInstance;
         files = new Files(main, "worldData.yml");
         databases = databasesInstance;
         scorebord = new Scorebord(game, files, databases, this, main);
-        chestManager = new ChestManager(game, files);
+        chestManager = chestManagerInstance;
     }
 
     @Override

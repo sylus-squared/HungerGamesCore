@@ -81,23 +81,23 @@ public class Files {
     }
 
     public int getMapRespawnX(){ // Again this will at some point be gotten from a YAML file
-        return 0;
+        return 61;
     }
     public int getMapRespawnY(){
-        return 38;
+        return 86;
     }
     public int getMapRespawnZ(){
-        return -3;
+        return -451;
     }
 
     public int getDeathmatchSpawnX(){
-        return 0;
+        return 61;
     }
     public int getDeathmatchSpawnY(){
-        return 38;
+        return 86;
     }
     public int getDeathmatchSpawnZ(){
-        return -3;
+        return -451;
     }
 
 

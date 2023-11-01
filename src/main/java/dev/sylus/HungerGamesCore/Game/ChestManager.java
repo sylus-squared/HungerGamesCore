@@ -28,15 +28,13 @@ public class ChestManager implements Listener {
     private final Set<Location> openedChests = new HashSet<>();
     private final List<LootItem> lootItems = new ArrayList<>();
 
-    Game game;
     ConfigurationSection itemsSection;
     FileConfiguration lootConfig;
     String chestName;
     Files files;
     Set<String> keys;
 
-    public ChestManager(Game gameInstance, Files filesInstance){
-        game = gameInstance;
+    public ChestManager(Files filesInstance){
         files = filesInstance;
     }
 
@@ -58,11 +56,9 @@ public class ChestManager implements Listener {
             chestName = chestName.replaceAll("§[a-f0-9]", "");
             chestName = chestName.replace(" chest", "");
 
-            if (game.getState() == GameState.gameState.SECONDHALF){
-                itemsSection = files.getConfig("worldData.yml").getConfigurationSection("secondHalfItems." + chestName); // Using worldData allows for maps to have different loot tables
-            } else {
-                itemsSection = files.getConfig("worldData.yml").getConfigurationSection("firstHalfItems." + chestName);
-            }
+
+            itemsSection = files.getConfig("worldData.yml").getConfigurationSection("firstHalfItems." + chestName);
+
             Bukkit.getLogger().log(Level.WARNING, String.valueOf(itemsSection));
 
             if (itemsSection != null){

@@ -2,6 +2,7 @@ package dev.sylus.HungerGamesCore.Tasks;
 
 import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Files.Databases;
+import dev.sylus.HungerGamesCore.Game.ChestManager;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
 import dev.sylus.HungerGamesCore.HungerGamesCore;
@@ -16,8 +17,9 @@ public class GameRunTask extends BukkitRunnable {
 
     HungerGamesCore main;
     Databases databases;
+    ChestManager chestManager;
 
-    public GameRunTask(Game game, HungerGamesCore mainInstance, Databases databasesInstance) {
+    public GameRunTask(Game game, HungerGamesCore mainInstance, Databases databasesInstance, ChestManager chestManagerInstance) {
         this.game = game;
         // this.game.assignSpawnPositions();
         main = mainInstance;
@@ -32,7 +34,7 @@ public class GameRunTask extends BukkitRunnable {
             game.setState(GameState.gameState.ACTIVE, "Game run task");
             Bukkit.broadcastMessage("§a[!] The game has started.");
             game.setMovement(true);
-            new GameTimer(main, game, databases).runTaskTimer(main, 0, 20);
+            new GameTimer(main, game, databases, chestManager).runTaskTimer(main, 0, 20);
         } else if (startIn == 10 || startIn <= 5) {
             main.refreshScorebordAll();
             Bukkit.broadcastMessage("§eThe game will begin in §c" + startIn + " §esecond" + (startIn == 1 ? "" : "s"));

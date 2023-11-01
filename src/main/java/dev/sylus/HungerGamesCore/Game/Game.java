@@ -22,12 +22,14 @@ public class Game {
 
     HungerGamesCore main;
     GameCountDownTask countDownTask;
+    ChestManager chestManager;
 
-    public Game(HungerGamesCore mainInstance){ // Constructor
+    public Game(HungerGamesCore mainInstance, ChestManager chestManagerInstance){ // Constructor
         main = mainInstance;
         countDownTask = main.getGameCountDownTask();
         playersAlive = new ArrayList<Player>();
         spectators = new ArrayList<Player>();
+        chestManager = chestManagerInstance;
     }
 
     public void startGame(){
@@ -36,7 +38,7 @@ public class Game {
             main.logger.log(Level.INFO, "Game state is: " + gameState + " Game state from method is: " + this.getState());
             return;
         }
-        new GameCountDownTask(this, main).runTaskTimer(main, 0, 20);
+        new GameCountDownTask(this, main, chestManager).runTaskTimer(main, 0, 20);
 
         this.gameState = GameState.gameState.ACTIVE;
         this.movement = true;

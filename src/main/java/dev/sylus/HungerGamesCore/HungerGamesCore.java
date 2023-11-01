@@ -2,6 +2,7 @@ package dev.sylus.HungerGamesCore;
 
 import dev.sylus.HungerGamesCore.Commands.*;
 import dev.sylus.HungerGamesCore.Enums.GameState;
+import dev.sylus.HungerGamesCore.Events.Damage;
 import dev.sylus.HungerGamesCore.Events.JoinAndLeave;
 import dev.sylus.HungerGamesCore.Events.MovementFreeze;
 import dev.sylus.HungerGamesCore.Events.PlayerDeathEvent;
@@ -14,6 +15,7 @@ import dev.sylus.HungerGamesCore.Tasks.GameCountDownTask;
 import dev.sylus.HungerGamesCore.Tasks.GameRunTask;
 import dev.sylus.HungerGamesCore.Tasks.GameTimer;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -49,31 +51,35 @@ public final class HungerGamesCore extends JavaPlugin {
     GameCountDownTask gameCountDownTask;
     Scorebord scorebord;
     GameTimer gameTimer;
+    ChestManager chestManager;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         // Initialise everything
-        game = new Game(this);
+
         files = new Files(this, "worldData.yml");
+        chestManager = new ChestManager(files);
+        game = new Game(this, chestManager);
         databases = new Databases(game, this, files);
         scorebord = new Scorebord(game, files, databases, getGameTimer(), this); // this might not work :/
-        gameRunTask = new GameRunTask(game, this, databases);
-        gameCountDownTask = new GameCountDownTask(game, this);
-        gameTimer = new GameTimer(this, game, databases);
+        gameRunTask = new GameRunTask(game, this, databases, chestManager);
+        gameCountDownTask = new GameCountDownTask(game, this, chestManager);
+        gameTimer = new GameTimer(this, game, databases, chestManager);
 
         JoinAndLeave joinAndLeave = new JoinAndLeave(game, files, scorebord, gameTimer, databases);
         MovementFreeze movementFreeze = new MovementFreeze(game);
-        GameCountDownTask task = new GameCountDownTask(game, this);
+        GameCountDownTask task = new GameCountDownTask(game, this, chestManager);
         PlayerDeathEvent playerDeathEvent = new PlayerDeathEvent(game, files, gameTimer, scorebord, databases);
+        Damage damage = new Damage(game);
 
         // Register the events
-        ChestManager chestManager = new ChestManager(game, files);
         getServer().getPluginManager().registerEvents(chestManager, this);
         getServer().getPluginManager().registerEvents(joinAndLeave, this);
         getServer().getPluginManager().registerEvents(movementFreeze, this);
         getServer().getPluginManager().registerEvents(scorebord, this);
         getServer().getPluginManager().registerEvents(playerDeathEvent, this);
+        getServer().getPluginManager().registerEvents(damage, this);
 
         // Initialise the commands
         getCommand("gameStart").setExecutor(new GameStart(game));
@@ -119,11 +125,11 @@ public final class HungerGamesCore extends JavaPlugin {
     }
 
     public GameCountDownTask getGameCountDownTask(){
-        return new GameCountDownTask(game, this);
+        return new GameCountDownTask(game, this, chestManager);
     }
     public GameTimer getGameTimer(){
-        return new GameTimer(this, game, databases);
-    }
+        return new GameTimer(this, game, databases, chestManager);
+    } // I should not have done this, it caused so many issues :(
 
     public void refreshScorebordAll(){
         scorebord.refreshScorebordAll();

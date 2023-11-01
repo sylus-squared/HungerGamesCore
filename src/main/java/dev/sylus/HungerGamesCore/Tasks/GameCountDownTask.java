@@ -3,6 +3,7 @@ package dev.sylus.HungerGamesCore.Tasks;
 import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Files.Files;
+import dev.sylus.HungerGamesCore.Game.ChestManager;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
 import dev.sylus.HungerGamesCore.HungerGamesCore;
@@ -20,10 +21,12 @@ public class GameCountDownTask extends BukkitRunnable {
     Scorebord scorebord;
     Files files;
     Databases databases;
+    ChestManager chestManager;
 
-    public GameCountDownTask(Game gameInstance, HungerGamesCore mainInstance) {
+    public GameCountDownTask(Game gameInstance, HungerGamesCore mainInstance, ChestManager chestManagerInstance) {
         game = gameInstance;
         main = mainInstance;
+        chestManager = chestManagerInstance;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class GameCountDownTask extends BukkitRunnable {
             cancel();
             // Remember to set the correct world border size (Just bigger than the arena, it then needs to shrink)
             // Actually im not going to bother with the border thingy, I will just use small maps
-            new GameRunTask(game, main, databases).runTaskTimer(main, 0, 20);
+            new GameRunTask(game, main, databases, chestManager).runTaskTimer(main, 0, 20);
         } else {
             if (time == 15 || time == 10 || time <= 5) {
                Bukkit.broadcastMessage("§aYou will be teleported in §c" + time + " §aseconds");
