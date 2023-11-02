@@ -116,7 +116,7 @@ public class ChestManager implements Listener {
     }
 
     public void resetChests(){
-        openedChests.clear();
+       this.openedChests.clear();
 
         for (Player players: Bukkit.getOnlinePlayers()){
             players.sendTitle("§cChests refilled", "", 10, 20, 10);

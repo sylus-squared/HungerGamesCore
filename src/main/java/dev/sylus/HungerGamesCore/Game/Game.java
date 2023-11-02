@@ -139,9 +139,8 @@ public class Game {
     }
     public void addPlayerToLocalDataData(UUID uuid){
         playerData.add(uuid.toString()); // UUID
-        playerData.add(String.valueOf(1)); // Kills
-        playerData.add(String.valueOf(2)); // Game points
-        Bukkit.getLogger().log(Level.WARNING, "Added data to list: " + String.valueOf(getLocalPlayerData(uuid)));
+        playerData.add(String.valueOf(0)); // Kills
+        playerData.add(String.valueOf(0)); // Game points
     }
 
     public ArrayList<String> getLocalPlayerData(UUID uuid){
@@ -149,10 +148,9 @@ public class Game {
 
         for (int i = 0; i < playerData.size(); i++) {
             if (playerData.get(i).equals(uuid.toString())){
-                Bukkit.getLogger().log(Level.WARNING, String.valueOf(i));
                 dataToReturn.add(playerData.get(i)); // UUID
-                dataToReturn.add(playerData.get(i ++)); // Kills
-                dataToReturn.add(playerData.get(i ++)); // Game points
+                dataToReturn.add(playerData.get(i + 1)); // Kills
+                dataToReturn.add(playerData.get(i + 2)); // Game points
             }
         }
        return dataToReturn;
@@ -173,6 +171,7 @@ public class Game {
 
     public void addKills(UUID uuid, int killsToAdd){
         if (!(playerData.contains(uuid))){
+            Bukkit.getLogger().log(Level.WARNING, String.valueOf(playerData) + " From the if statement");
             Bukkit.getLogger().log(Level.SEVERE, "Tried to add data to a player that is not in the local data list");
         }
         String data;

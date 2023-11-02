@@ -107,10 +107,10 @@ public class Databases {
     }
 
     public ArrayList<String> getPlayerData(UUID uuid){
-        String name = "null";
-        String kills = "null";
-        String points = "null";
-        String score = "null";
+        String name = "error";
+        String kills = "error";
+        String points = "error";
+        String score = "error";
         ArrayList<String> dataToReturn =  new ArrayList<String>();
 
         if (connection == null){
@@ -128,7 +128,9 @@ public class Databases {
                 kills = resultSet.getString("Kills");
                 points = String.valueOf(resultSet.getInt("Points"));
                 score = String.valueOf(resultSet.getInt("Score"));
+                Bukkit.getLogger().log(Level.WARNING, name + kills + String.valueOf(points) + String.valueOf(score));
             }
+
             dataToReturn.add(name);
             dataToReturn.add(kills);
             dataToReturn.add(points);
@@ -186,6 +188,7 @@ public class Databases {
         }
         try {
             ArrayList<String> currentPoints = getPlayerData(uuid);
+            Bukkit.getLogger().log(Level.WARNING, String.valueOf(currentPoints));
             pointsToAdd = pointsToAdd + Integer.parseInt(currentPoints.get(2));
             String statement = "UPDATE dataTable SET Points = ? WHERE UUID = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -205,7 +208,7 @@ public class Databases {
             initialiseDatabase();
         }
         try {
-            String statement = "UPDATE dataTable SET Points = 0, SET Score = 0 WHERE UUID = ?;";
+            String statement = "UPDATE dataTable SET Points = 0 WHERE UUID = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, String.valueOf(uuid));
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -215,41 +218,6 @@ public class Databases {
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
         }
-    }
-
-    public void resetLocalPoints(UUID uuid){
-        if (connection == null){
-            initialiseDatabase();
-        }
-        try {
-            String statement = "UPDATE dataTable SET Score = 0 WHERE UUID = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setString(1, String.valueOf(uuid));
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            resultSet.close();
-            preparedStatement.close();
-        } catch (SQLException error) {
-            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-        }
-    }
-
-    public void resetAllData(UUID uuid){
-        if (connection == null){
-            initialiseDatabase();
-        }
-        try {
-            String statement = "UPDATE dataTable SET Kills = 0, Points = 0, SET Score = 0 WHERE UUID = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setString(1, String.valueOf(uuid));
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            resultSet.close();
-            preparedStatement.close();
-        } catch (SQLException error) {
-            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-        }
-
     }
 
 
@@ -267,7 +235,4 @@ public class Databases {
         return data.get(1);
     }
 
-    public void updateKills(Player player, int newKills){
-       // This will replace the old kills from the database with the new ones
-    }
 }

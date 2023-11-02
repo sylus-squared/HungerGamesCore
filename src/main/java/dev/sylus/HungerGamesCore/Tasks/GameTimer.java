@@ -57,6 +57,7 @@ public class GameTimer extends BukkitRunnable {
                 game.setState(GameState.gameState.SECONDHALF, "Game timer");
                 Bukkit.broadcastMessage(ChatColor.RED + "Chest refilled");
                 chestManager.resetChests();
+
                 refillTimer = -1;
                 scorebord.refreshScorebordAll();
             } else if (refillTimer == 60) {
