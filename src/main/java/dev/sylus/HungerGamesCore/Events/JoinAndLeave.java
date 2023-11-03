@@ -33,10 +33,14 @@ public class JoinAndLeave implements Listener {
     public void playerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
+        if (!(databases.isInDatabase(player.getUniqueId()))){
+            databases.addNewPlayer(player.getUniqueId(), player.getName());
+        }
+
         Bukkit.getLogger().log(Level.WARNING, "Trying to add player data to localData");
-        if (!(game.isInLocalData(player.getUniqueId()))){
-            game.addPlayerToLocalDataData(player.getUniqueId());
-            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(game.getLocalPlayerData(player.getUniqueId())));
+        if (!(databases.isPlayerInLocalData(player.getUniqueId()))){
+            databases.addPlayerToLocalData(player.getUniqueId());
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(databases.getLocalPlayerData(player.getUniqueId())));
         }
 
         System.out.println(game.getPlayerNumbers() + "PLAYERNUMBERS");
@@ -59,10 +63,6 @@ public class JoinAndLeave implements Listener {
                 player.setGameMode(GameMode.ADVENTURE); // The default game mode will be adventure, this is just in case
             }
         }
-        if (!(databases.isInDatabase(player.getUniqueId()))){
-            databases.addNewPlayer(player.getUniqueId(), player.getName());
-        }
-
         scorebord.refreshScorebordAll();
     }
 

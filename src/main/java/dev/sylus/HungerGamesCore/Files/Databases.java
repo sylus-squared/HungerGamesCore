@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -24,6 +26,10 @@ public class Databases {
     String driver;
     String username;
     String password;
+    Map<UUID, PlayerData> localDataMap = new HashMap<>();
+
+    UUID playerUUID;
+    PlayerData playerData;
 
     public Databases(Game gameInstance, HungerGamesCore hungerGamesCoreInstance, Files filesInstance){ // Constructor
         game = gameInstance;
@@ -44,6 +50,40 @@ public class Databases {
             Score: int(255) // Not used
      */
 
+    public void addPlayerToLocalData(UUID newUUID){
+        this.playerUUID = newUUID;
+        playerData = new PlayerData(playerUUID,  Integer.parseInt(getPlayerData(playerUUID).get(2)), 0, 0);
+        localDataMap.put(playerUUID, playerData);
+    }
+
+    public boolean isPlayerInLocalData(UUID uuid){
+        return localDataMap.containsKey(uuid);
+    }
+
+    public PlayerData getLocalPlayerData(UUID uuid){
+        PlayerData retrivedData = localDataMap.get(uuid);
+        if (retrivedData == null){
+            Bukkit.getLogger().log(Level.SEVERE, "Retrived data is null");
+        }
+        return retrivedData;
+    }
+
+    public void addPoints(UUID uuid, int pointsToAdd){
+        int oldPoints = getLocalPlayerData(uuid).getCurrentPoints();
+        PlayerData dataPlayer = getLocalPlayerData(uuid);
+        dataPlayer.setGamePoints(pointsToAdd + oldPoints);
+        dataPlayer.setOverallPoints(pointsToAdd + pointsToAdd);
+    }
+
+    public void addKills(UUID uuid, int killsToAdd){
+        int oldKills = getLocalPlayerData(uuid).getCurrentKills();
+        PlayerData dataPlayer = getLocalPlayerData(uuid);
+        dataPlayer.setCurrentKills(killsToAdd + oldKills);
+    }
+
+    public void addPointsToDB (UUID uuid){
+        updateData(uuid, getLocalPlayerData(uuid).getGamePoints());
+    }
 
     public void initialiseDatabase(){
         try {
@@ -182,7 +222,7 @@ public class Databases {
         }
     }
 
-    public void addPoints(UUID uuid, int pointsToAdd){
+    public void addPointstoDB(UUID uuid, int pointsToAdd){
         if (connection == null){
             initialiseDatabase();
         }
@@ -224,15 +264,6 @@ public class Databases {
     public String getTotalPoints(Player player){
         ArrayList<String> data = getPlayerData(player.getUniqueId()); // Name, Kills, Points, Score What's the difference between points and score?
         return data.get(2);
-    }
-
-    public int getGamePoints(Player player){
-        return 20;
-    }
-
-    public String getKills(Player player){
-        ArrayList<String> data = getPlayerData(player.getUniqueId()); // Name, Kills, Points, Score
-        return data.get(1);
     }
 
 }

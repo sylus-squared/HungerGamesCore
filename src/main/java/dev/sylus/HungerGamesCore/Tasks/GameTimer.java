@@ -164,6 +164,11 @@ public class GameTimer extends BukkitRunnable {
     public void stopGame(Boolean stoppedByCommand){
         game.setVunrability(false);
         game.setState(GameState.gameState.ENDING, "Game timer stopped game");
+
+        for (Player players: Bukkit.getOnlinePlayers()){
+            databases.addPointsToDB(players.getUniqueId()); // Updates the database with the local data
+        }
+
         if (stoppedByCommand){
             for (Player players: Bukkit.getOnlinePlayers()){
                 players.sendTitle(ChatColor.RED + "Game stopped", ChatColor.YELLOW + "Please await further instructions", 10, 30, 10);

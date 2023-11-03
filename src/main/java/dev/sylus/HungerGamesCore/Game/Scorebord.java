@@ -130,7 +130,7 @@ public class Scorebord implements Listener {
             Score score2 = obj.getScore("§bPlayers alive§f: " + ChatColor.GREEN + game.getPlayerNumbers());
             score2.setScore(8);
 
-            Score score3 = obj.getScore("§6Kills§f: " + game.getLocalPlayerData(player.getUniqueId()).get(1));
+            Score score3 = obj.getScore("§6Kills§f: " + databases.getLocalPlayerData(player.getUniqueId()).getCurrentKills());
             score3.setScore(7);
 
             Score score4 = obj.getScore("§fNext event");
@@ -142,10 +142,10 @@ public class Scorebord implements Listener {
             Score score6 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━");
             score6.setScore(4);
 
-            Score score7 = obj.getScore("§aGames score§f: " + game.getLocalPlayerData(player.getUniqueId()).get(2));
+            Score score7 = obj.getScore("§aGames score§f: " + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints());
             score7.setScore(3);
 
-            Score score8 = obj.getScore("§aTotal score§f: " + databases.getTotalPoints(player));
+            Score score8 = obj.getScore("§aTotal score§f: " + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints());
             score8.setScore(2);
 
             Score score9 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━§c");
@@ -175,7 +175,7 @@ public class Scorebord implements Listener {
                     if (minutes == 0) {
                         this.formatedTime = String.format("%02d", seconds); // No minutes, formatted as 0:seconds
                     } else {
-                        this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
+                        this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formatted as minutes:seconds
                     }
                     this.currentEvent = "§cChest refil in: §e" + formatedTime;
                     break;
@@ -244,7 +244,7 @@ public class Scorebord implements Listener {
             Score score2 = obj.getScore("§bPlayers alive§f: " + ChatColor.GREEN + game.getPlayerNumbers());
             score2.setScore(8);
 
-            Score score3 = obj.getScore("§6Kills§f: " + game.getLocalPlayerData(players.getUniqueId()).get(1));
+            Score score3 = obj.getScore("§6Kills§f: " + databases.getLocalPlayerData(players.getUniqueId()).getCurrentKills());
             score3.setScore(7);
 
             Score score4 = obj.getScore("§fNext event");
@@ -256,10 +256,10 @@ public class Scorebord implements Listener {
             Score score6 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━"); // This is not showing for some reason
             score6.setScore(4);
 
-            Score score7 = obj.getScore("§aGames score§f: " + game.getLocalPlayerData(players.getUniqueId()).get(2));
+            Score score7 = obj.getScore("§aGames score§f: " + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
             score7.setScore(3);
 
-            Score score8 = obj.getScore("§aTotal score§f: " + databases.getTotalPoints(players));
+            Score score8 = obj.getScore("§aTotal score§f: " + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
             score8.setScore(2);
 
             Score score9 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━§c");

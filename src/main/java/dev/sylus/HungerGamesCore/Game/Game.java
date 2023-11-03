@@ -14,7 +14,6 @@ import java.util.logging.Level;
 public class Game {
     private List<Player> playersAlive;
     private List<Player> spectators;
-    private List<String> playerData; // The format is ["playerUUID", "gamePoints", "kills"]
     private GameState.gameState gameState = GameState.gameState.TESTING;
     private boolean movement = true; // This controls if people can move or not
     private boolean playerCount = true; // This controls if the player count should go up when someone joins or not
@@ -29,7 +28,6 @@ public class Game {
         countDownTask = main.getGameCountDownTask();
         playersAlive = new ArrayList<Player>();
         spectators = new ArrayList<Player>();
-        playerData = new ArrayList<String>();
         chestManager = chestManagerInstance;
     }
 
@@ -137,53 +135,5 @@ public class Game {
     public boolean isPlayerAlive(Player player){
         return playersAlive.contains(player);
     }
-    public void addPlayerToLocalDataData(UUID uuid){
-        playerData.add(uuid.toString()); // UUID
-        playerData.add(String.valueOf(0)); // Kills
-        playerData.add(String.valueOf(0)); // Game points
-    }
 
-    public ArrayList<String> getLocalPlayerData(UUID uuid){
-       ArrayList<String> dataToReturn = new ArrayList<String>();
-
-        for (int i = 0; i < playerData.size(); i++) {
-            if (playerData.get(i).equals(uuid.toString())){
-                dataToReturn.add(playerData.get(i)); // UUID
-                dataToReturn.add(playerData.get(i + 1)); // Kills
-                dataToReturn.add(playerData.get(i + 2)); // Game points
-            }
-        }
-       return dataToReturn;
-    }
-
-    public void addPoints(UUID uuid, int pointsToAdd){
-        if (!(playerData.contains(uuid))){
-            Bukkit.getLogger().log(Level.SEVERE, "Tried to add data to a player that is not in the local data list");
-        }
-        String data;
-        for (int i = 0; i < playerData.size(); i++) {
-            if (playerData.get(i).equals(uuid.toString())){
-                playerData.set(i + 2, String.valueOf( Integer.parseInt(playerData.get(i + 2) + pointsToAdd)));
-                return;
-            }
-        }
-    }
-
-    public void addKills(UUID uuid, int killsToAdd){
-        if (!(playerData.contains(uuid))){
-            Bukkit.getLogger().log(Level.WARNING, String.valueOf(playerData) + " From the if statement");
-            Bukkit.getLogger().log(Level.SEVERE, "Tried to add data to a player that is not in the local data list");
-        }
-        String data;
-        for (int i = 0; i < playerData.size(); i++) {
-            if (playerData.get(i).equals(uuid.toString())){
-                playerData.set(i + 2, String.valueOf( Integer.parseInt(playerData.get(i + 1) + killsToAdd)));
-                return;
-            }
-        }
-    }
-
-    public boolean isInLocalData(UUID uuid){
-        return playerData.contains(uuid.toString());
-    }
 }
