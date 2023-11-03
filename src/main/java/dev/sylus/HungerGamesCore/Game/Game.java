@@ -177,7 +177,7 @@ public class Game {
         String data;
         for (int i = 0; i < playerData.size(); i++) {
             if (playerData.get(i).equals(uuid.toString())){
-                playerData.set(i + 2, String.valueOf( Integer.parseInt(playerData.get(i ++) + killsToAdd)));
+                playerData.set(i + 2, String.valueOf( Integer.parseInt(playerData.get(i + 1) + killsToAdd)));
                 return;
             }
         }
