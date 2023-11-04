@@ -93,7 +93,6 @@ public final class HungerGamesCore extends JavaPlugin {
         getCommand("databaseTest").setExecutor(new DatabaseTest(databases)); // Remove this eventually
         getCommand("addPoints").setExecutor(new AddPoints(databases, scorebord));
         getCommand("resetPoints").setExecutor(new ResetPoints(databases, scorebord));
-        getCommand("getPlayerData").setExecutor(new GetAllData(databases, this));
 
         saveDefaultConfig();
 
