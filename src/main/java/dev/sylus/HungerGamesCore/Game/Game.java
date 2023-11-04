@@ -1,6 +1,7 @@
 package dev.sylus.HungerGamesCore.Game;
 
 import dev.sylus.HungerGamesCore.Enums.GameState;
+import dev.sylus.HungerGamesCore.Files.Files;
 import dev.sylus.HungerGamesCore.HungerGamesCore;
 import dev.sylus.HungerGamesCore.Tasks.GameCountDownTask;
 import org.bukkit.*;
@@ -22,13 +23,15 @@ public class Game {
     HungerGamesCore main;
     GameCountDownTask countDownTask;
     ChestManager chestManager;
+    Files files;
 
-    public Game(HungerGamesCore mainInstance, ChestManager chestManagerInstance){ // Constructor
+    public Game(HungerGamesCore mainInstance, ChestManager chestManagerInstance, Files filesInstance){ // Constructor
         main = mainInstance;
         countDownTask = main.getGameCountDownTask();
         playersAlive = new ArrayList<Player>();
         spectators = new ArrayList<Player>();
         chestManager = chestManagerInstance;
+        files = filesInstance;
     }
 
     public void startGame(){
@@ -37,7 +40,7 @@ public class Game {
             main.logger.log(Level.INFO, "Game state is: " + gameState + " Game state from method is: " + this.getState());
             return;
         }
-        new GameCountDownTask(this, main, chestManager).runTaskTimer(main, 0, 20);
+        new GameCountDownTask(this, main, chestManager, files).runTaskTimer(main, 0, 20);
 
         this.gameState = GameState.gameState.ACTIVE;
         this.movement = true;
