@@ -8,6 +8,7 @@ import dev.sylus.HungerGamesCore.Events.MovementFreeze;
 import dev.sylus.HungerGamesCore.Events.PlayerDeathEvent;
 import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Files.Files;
+import dev.sylus.HungerGamesCore.Game.Border;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.ChestManager;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
@@ -54,6 +55,7 @@ public final class HungerGamesCore extends JavaPlugin {
     Scorebord scorebord;
     GameTimer gameTimer;
     ChestManager chestManager;
+    Border border;
     boolean canOpenChests = false;
 
 
@@ -63,6 +65,7 @@ public final class HungerGamesCore extends JavaPlugin {
         // Initialise everything
 
         files = new Files(this, "worldData.yml");
+        border = new Border(files);
         chestManager = new ChestManager(files, this);
         game = new Game(this, chestManager, files);
         databases = new Databases(game, this, files);
@@ -114,6 +117,7 @@ public final class HungerGamesCore extends JavaPlugin {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        border.initialiseBorder();
 
         scorebord.refreshScorebordAll();
         databases.initialiseDatabase();

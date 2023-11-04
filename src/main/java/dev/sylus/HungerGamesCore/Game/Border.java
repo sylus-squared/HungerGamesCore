@@ -6,6 +6,7 @@ import org.bukkit.WorldBorder;
 
 public class Border {
     private WorldBorder border;
+    int curretBorderSize = 0;
 
     Files files;
     public Border(Files fileInstance){
@@ -25,8 +26,18 @@ public class Border {
         getWorldBorder().setCenter(Bukkit.getWorld("World").getSpawnLocation());
         getWorldBorder().setWarningDistance(10);
         getWorldBorder().setSize(files.getConfig("worldData").getInt(""));
+        curretBorderSize = files.getConfig("worldData").getInt("");
         getWorldBorder().setWarningTime(5);
         getWorldBorder().setDamageAmount(5.0);
+    }
+
+    public void setBorderSize(int newSize){
+        getWorldBorder().setSize(newSize);
+        curretBorderSize = newSize;
+    }
+
+    public int getBorderSize(){
+        return curretBorderSize;
     }
 
 
