@@ -43,7 +43,7 @@ commands:
     description: This command tests getting data from the database
 
   addPoints:
-    usage: /addPoints
+    usage: /addPoints <args>
     description: Adds some points to the player who sent it
 
   resetPoints:
