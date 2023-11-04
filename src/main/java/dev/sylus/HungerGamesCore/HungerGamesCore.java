@@ -54,6 +54,8 @@ public final class HungerGamesCore extends JavaPlugin {
     Scorebord scorebord;
     GameTimer gameTimer;
     ChestManager chestManager;
+    boolean canOpenChests = false;
+
 
     @Override
     public void onEnable() {
@@ -61,7 +63,7 @@ public final class HungerGamesCore extends JavaPlugin {
         // Initialise everything
 
         files = new Files(this, "worldData.yml");
-        chestManager = new ChestManager(files);
+        chestManager = new ChestManager(files, this);
         game = new Game(this, chestManager, files);
         databases = new Databases(game, this, files);
         scorebord = new Scorebord(game, files, databases, getGameTimer(), this); // this might not work :/
@@ -140,6 +142,13 @@ public final class HungerGamesCore extends JavaPlugin {
 
     public Databases getDatabases(){
         return databases;
+    }
+
+    public void setCanOpenChests(boolean newState){
+        canOpenChests  = newState;
+    }
+    public boolean getCanOpenChests(){
+        return canOpenChests;
     }
 
 }

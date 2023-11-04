@@ -19,7 +19,6 @@ public class Game {
     private boolean movement = true; // This controls if people can move or not
     private boolean playerCount = true; // This controls if the player count should go up when someone joins or not
     boolean doDamage = true; // If this is false then players cannot take damage
-
     HungerGamesCore main;
     GameCountDownTask countDownTask;
     ChestManager chestManager;
@@ -138,5 +137,6 @@ public class Game {
     public boolean isPlayerAlive(Player player){
         return playersAlive.contains(player);
     }
+
 
 }

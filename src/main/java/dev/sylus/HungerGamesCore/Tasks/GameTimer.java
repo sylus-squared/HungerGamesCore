@@ -193,6 +193,7 @@ public class GameTimer extends BukkitRunnable {
                     databases.addPoints(players.getUniqueId(), 5);
                 }
             }
+            main.setCanOpenChests(false);
             scorebord.refreshScorebordAll();
         }
         for (Player players: Bukkit.getOnlinePlayers()){

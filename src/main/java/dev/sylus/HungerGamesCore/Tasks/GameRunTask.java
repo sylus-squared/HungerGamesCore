@@ -36,6 +36,7 @@ public class GameRunTask extends BukkitRunnable {
             Bukkit.broadcastMessage("§a[!] The game has started.");
             game.setMovement(true);
             game.setVunrability(true);
+            main.setCanOpenChests(true);
             new GameTimer(main, game, databases, chestManager).runTaskTimer(main, 0, 20);
         } else if (startIn == 10 || startIn <= 5) {
             main.refreshScorebordAll();

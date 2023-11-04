@@ -2,6 +2,7 @@ package dev.sylus.HungerGamesCore.Game;
 
 import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Files.Files;
+import dev.sylus.HungerGamesCore.HungerGamesCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -33,9 +34,11 @@ public class ChestManager implements Listener {
     String chestName;
     Files files;
     Set<String> keys;
+    HungerGamesCore main;
 
-    public ChestManager(Files filesInstance){
+    public ChestManager(Files filesInstance, HungerGamesCore hungerGamesCoreInstance){
         files = filesInstance;
+        main = hungerGamesCoreInstance;
     }
 
     @EventHandler
@@ -47,6 +50,11 @@ public class ChestManager implements Listener {
             if (hasBeenOpened(chest.getLocation())) {
                 return;
             }
+            if (!(main.getCanOpenChests())){
+                event.setCancelled(true);
+                return;
+            }
+
             chestName = chest.getCustomName();
             Bukkit.getLogger().log(Level.WARNING, chestName);
             if (chestName == null || chestName.equals("chest")){
