@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 public class Databases {
@@ -26,7 +27,7 @@ public class Databases {
     String driver;
     String username;
     String password;
-    Map<UUID, PlayerData> localDataMap = new HashMap<>();
+    Map<UUID, PlayerData> localDataMap = new ConcurrentHashMap<>();
 
     UUID playerUUID;
     PlayerData playerData;
@@ -69,9 +70,11 @@ public class Databases {
     }
 
     public void addPoints(UUID uuid, int pointsToAdd){
-        int oldPoints = getLocalPlayerData(uuid).getCurrentPoints();
+        PlayerData oldPoints = getLocalPlayerData(uuid);
+        int Points = oldPoints.getGamePoints();
+
         PlayerData dataPlayer = getLocalPlayerData(uuid);
-        dataPlayer.setGamePoints(pointsToAdd + oldPoints);
+        dataPlayer.setGamePoints(pointsToAdd + Points);
         dataPlayer.setOverallPoints(pointsToAdd + pointsToAdd);
     }
 
@@ -168,7 +171,6 @@ public class Databases {
                 kills = resultSet.getString("Kills");
                 points = String.valueOf(resultSet.getInt("Points"));
                 score = String.valueOf(resultSet.getInt("Score"));
-                Bukkit.getLogger().log(Level.WARNING, name + kills + String.valueOf(points) + String.valueOf(score));
             }
 
             dataToReturn.add(name);

@@ -51,6 +51,10 @@ commands:
     description: This command sets resets the points for a player or all players
     permission: hungergamescore.resetPoints
 
+  getPlayerData:
+    usage: /getPlayerData <args>
+    description: This command gets the data for a player
+
 
 permissions:
   hungergamescore.startgame:

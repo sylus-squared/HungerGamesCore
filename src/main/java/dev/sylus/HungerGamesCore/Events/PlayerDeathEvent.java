@@ -36,7 +36,6 @@ public class PlayerDeathEvent implements Listener {
 
     @EventHandler
     public void onDeath(org.bukkit.event.entity.PlayerDeathEvent event) {
-        Bukkit.getLogger().log(Level.SEVERE, "PLAYER JUST DIED");
         Player player = event.getEntity();
         GameState.gameState gameState = game.getState(); // Possible states: PREGAME, STARTING, ENDGAME and TESTING
         if (gameState == GameState.gameState.TESTING || gameState == GameState.gameState.PREGAME){

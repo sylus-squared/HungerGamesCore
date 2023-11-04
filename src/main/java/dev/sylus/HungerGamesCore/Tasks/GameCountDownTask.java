@@ -32,9 +32,9 @@ public class GameCountDownTask extends BukkitRunnable {
     @Override
     public void run() {
         time -= 1;
-
-        Bukkit.getLogger().log(Level.INFO, "Running the count down");
-        game.setState(GameState.gameState.GAMESTART, "Count down task");
+        if (!(game.getState() == GameState.gameState.GAMESTART)){
+            game.setState(GameState.gameState.GAMESTART, "Count down task");
+        }
 
         if (time == 0) {
             // Start

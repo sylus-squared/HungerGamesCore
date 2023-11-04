@@ -15,6 +15,8 @@ import dev.sylus.HungerGamesCore.Tasks.GameCountDownTask;
 import dev.sylus.HungerGamesCore.Tasks.GameRunTask;
 import dev.sylus.HungerGamesCore.Tasks.GameTimer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -91,6 +93,7 @@ public final class HungerGamesCore extends JavaPlugin {
         getCommand("databaseTest").setExecutor(new DatabaseTest(databases)); // Remove this eventually
         getCommand("addPoints").setExecutor(new AddPoints(databases));
         getCommand("resetPoints").setExecutor(new ResetPoints(databases, scorebord));
+        getCommand("getPlayerData").setExecutor(new GetAllData(databases, this));
 
         saveDefaultConfig();
 
@@ -139,6 +142,5 @@ public final class HungerGamesCore extends JavaPlugin {
     public Databases getDatabases(){
         return databases;
     }
-
 
 }

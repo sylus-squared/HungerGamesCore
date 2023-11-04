@@ -165,10 +165,6 @@ public class GameTimer extends BukkitRunnable {
         game.setVunrability(false);
         game.setState(GameState.gameState.ENDING, "Game timer stopped game");
 
-        for (Player players: Bukkit.getOnlinePlayers()){
-            databases.addPointsToDB(players.getUniqueId()); // Updates the database with the local data
-        }
-
         if (stoppedByCommand){
             for (Player players: Bukkit.getOnlinePlayers()){
                 players.sendTitle(ChatColor.RED + "Game stopped", ChatColor.YELLOW + "Please await further instructions", 10, 30, 10);
@@ -179,7 +175,7 @@ public class GameTimer extends BukkitRunnable {
             }
         } else if (game.getPlayerNumbers() == 1){
             playerName = game.getLastPlayer().getName();
-            databases.addPoints(UUID.randomUUID(), 10);
+            databases.addPoints(game.getLastPlayer().getUniqueId(), 10);
             game.getLastPlayer().sendMessage("§eYou were given §c10 §epoints for winning");
             for (Player players: Bukkit.getOnlinePlayers()){
                 players.sendTitle(ChatColor.RED + playerName + " WINS", ChatColor.YELLOW + "You will return to the lobby in 20 seconds", 10, 60, 10);
@@ -198,6 +194,9 @@ public class GameTimer extends BukkitRunnable {
                 }
             }
             scorebord.refreshScorebordAll();
+        }
+        for (Player players: Bukkit.getOnlinePlayers()){
+            databases.addPointsToDB(players.getUniqueId()); // Updates the database with the local data
         }
     }
 

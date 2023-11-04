@@ -40,7 +40,9 @@ public class JoinAndLeave implements Listener {
         Bukkit.getLogger().log(Level.WARNING, "Trying to add player data to localData");
         if (!(databases.isPlayerInLocalData(player.getUniqueId()))){
             databases.addPlayerToLocalData(player.getUniqueId());
-            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(databases.getLocalPlayerData(player.getUniqueId())));
+            Bukkit.getLogger().log(Level.SEVERE, String.valueOf(databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints()) + " This is from line 43 of JoinAndLeave");
+        } else {
+            Bukkit.getLogger().log(Level.WARNING, "Player already in the Local data system joined");
         }
 
         System.out.println(game.getPlayerNumbers() + "PLAYERNUMBERS");

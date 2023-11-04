@@ -24,6 +24,7 @@ public class GameRunTask extends BukkitRunnable {
         // this.game.assignSpawnPositions();
         main = mainInstance;
         databases = databasesInstance;
+        chestManager = chestManagerInstance;
     }
 
     @Override
