@@ -2,6 +2,7 @@ package dev.sylus.HungerGamesCore.Commands;
 
 import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
+import dev.sylus.HungerGamesCore.Utils.ServerUtil;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -13,9 +14,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class JoinServer implements CommandExecutor {
+    ServerUtil serverUtil;
 
 
-    public JoinServer(){ // Constructor
+    public JoinServer(ServerUtil serverUtilInstance){ // Constructor
+        serverUtil = serverUtilInstance;
 
     }
 
@@ -28,13 +31,8 @@ public class JoinServer implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "Incorrect format, the correct format is /join <SERVERNAME>");
             return true;
         }
-        ProxiedPlayer player = (ProxiedPlayer) sender;
-        ServerInfo targetServer = ProxyServer.getInstance().getServerInfo(args[0]);
-        if (targetServer != null){
-            player.connect(targetServer);
-        } else {
-            player.sendMessage(ChatColor.RED + "The requested server: " + args[0] + " does not exist or is offline");
-        }
+        Player player = (Player) sender;
+        serverUtil.sendPlayerToServer(player, args[0]);
         return true;
     }
 }

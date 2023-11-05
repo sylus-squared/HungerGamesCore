@@ -1,5 +1,7 @@
 package dev.sylus.HungerGamesCore;
 
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
 import dev.sylus.HungerGamesCore.Commands.*;
 import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Events.Damage;
@@ -21,13 +23,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class HungerGamesCore extends JavaPlugin {
+public final class HungerGamesCore extends JavaPlugin implements PluginMessageListener {
 
     /*
     -----------------------------------------------------------------------
@@ -67,7 +70,7 @@ public final class HungerGamesCore extends JavaPlugin {
         // Initialise everything
 
         files = new Files(this, "worldData.yml");
-        serverUtil = new ServerUtil();
+        serverUtil = new ServerUtil(this);
         border = new Border(files);
         chestManager = new ChestManager(files, this);
         game = new Game(this, chestManager, files, border, serverUtil);
@@ -101,9 +104,12 @@ public final class HungerGamesCore extends JavaPlugin {
         getCommand("databaseTest").setExecutor(new DatabaseTest(databases)); // Remove this eventually
         getCommand("addPoints").setExecutor(new AddPoints(databases, scorebord));
         getCommand("resetPoints").setExecutor(new ResetPoints(databases, scorebord));
-        getCommand("join").setExecutor(new JoinServer());
+        getCommand("join").setExecutor(new JoinServer(serverUtil));
 
         saveDefaultConfig();
+
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
 
         game.setState(GameState.gameState.TESTING, "Main class");
         logger.log(Level.INFO, "CoreLoaded");
@@ -131,6 +137,21 @@ public final class HungerGamesCore extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         databases.closeConnection();
+        this.getServer().getMessenger().unregisterOutgoingPluginChannel(this);
+        this.getServer().getMessenger().unregisterIncomingPluginChannel(this);
+    }
+
+    @Override
+    public void onPluginMessageReceived(String channel, Player player, byte[] message) {
+        if (!channel.equals("BungeeCord")) {
+            return;
+        }
+        ByteArrayDataInput in = ByteStreams.newDataInput(message);
+        String subchannel = in.readUTF();
+        if (subchannel.equals("SomeSubChannel")) {
+            // Use the code sample in the 'Response' sections below to read
+            // the data.
+        }
     }
 
     public HungerGamesCore getMain(){

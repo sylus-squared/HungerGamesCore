@@ -51,6 +51,10 @@ commands:
     description: This command sets resets the points for a player or all players
     permission: hungergamescore.resetPoints
 
+  join:
+    usage: /join <args>
+    description: This command allows players to join other servers
+
 permissions:
   hungergamescore.startgame:
     description: Allows players to user the /gameStart command

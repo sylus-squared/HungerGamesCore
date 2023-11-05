@@ -1,21 +1,23 @@
 package dev.sylus.HungerGamesCore.Utils;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.config.ServerInfo;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
+import dev.sylus.HungerGamesCore.HungerGamesCore;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class ServerUtil {
-    public ServerUtil(){
-
+    HungerGamesCore main;
+    public ServerUtil(HungerGamesCore mainInstance){
+        main = mainInstance;
     }
 
-    public void sendPlayerToServer(ProxiedPlayer player, String serverName){
-        ServerInfo targetServer = ProxyServer.getInstance().getServerInfo(serverName);
-        if (targetServer != null){
-            player.connect(targetServer);
-        } else {
-            player.sendMessage(ChatColor.RED + "The requested server: " + serverName + " does not exist or is offline");
-        }
+    public void sendPlayerToServer(Player player, String serverName){
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("Connect");
+        out.writeUTF(serverName);
+        // Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null); to do it for all players
+        player.sendPluginMessage(main, "BungeeCord", out.toByteArray());
+
     }
 }
