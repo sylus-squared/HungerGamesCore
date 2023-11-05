@@ -25,8 +25,8 @@ public class Border {
         setWorldBorder(Bukkit.getWorld("World").getWorldBorder());
         getWorldBorder().setCenter(Bukkit.getWorld("World").getSpawnLocation());
         getWorldBorder().setWarningDistance(10);
-        getWorldBorder().setSize(files.getConfig("worldData").getInt(""));
-        curretBorderSize = files.getConfig("worldData").getInt("");
+        getWorldBorder().setSize(files.getConfig("worldData").getInt("worldData.startingBorderSize"));
+        curretBorderSize = files.getConfig("worldData").getInt("worldData.startingBorderSize");
         getWorldBorder().setWarningTime(5);
         getWorldBorder().setDamageAmount(5.0);
     }
