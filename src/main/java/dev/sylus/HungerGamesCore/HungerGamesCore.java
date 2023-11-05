@@ -104,6 +104,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         getCommand("addPoints").setExecutor(new AddPoints(databases, scorebord));
         getCommand("resetPoints").setExecutor(new ResetPoints(databases, scorebord));
         getCommand("join").setExecutor(new JoinServer(serverUtil));
+        getCommand("lobby").setExecutor(new Lobby(serverUtil));
 
         saveDefaultConfig();
 
