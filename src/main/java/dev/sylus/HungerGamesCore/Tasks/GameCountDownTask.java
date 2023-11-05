@@ -29,13 +29,14 @@ public class GameCountDownTask extends BukkitRunnable {
     Border border;
     ServerUtil serverUtil;
 
-    public GameCountDownTask(Game gameInstance, HungerGamesCore mainInstance, ChestManager chestManagerInstance, Files filesInstance, Border borderInstance, ServerUtil serverUtilInstance) {
+    public GameCountDownTask(Game gameInstance, HungerGamesCore mainInstance, ChestManager chestManagerInstance, Files filesInstance, Border borderInstance, ServerUtil serverUtilInstance, Databases databasesInstance) {
         game = gameInstance;
         main = mainInstance;
         chestManager = chestManagerInstance;
         files = filesInstance;
         border = borderInstance;
         serverUtil = serverUtilInstance;
+        databases = databasesInstance;
     }
 
     @Override

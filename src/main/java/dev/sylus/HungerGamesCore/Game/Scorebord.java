@@ -142,10 +142,10 @@ public class Scorebord implements Listener {
             Score score6 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━");
             score6.setScore(4);
 
-            Score score7 = obj.getScore("§aGames score§f: " + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints());
+            Score score7 = obj.getScore("§aGames score§f: " + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints()); // Points gained during this game
             score7.setScore(3);
 
-            Score score8 = obj.getScore("§aTotal score§f: " + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints());
+            Score score8 = obj.getScore("§aTotal score§f: " + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints()); // All points for all games
             score8.setScore(2);
 
             Score score9 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━§c");
@@ -181,7 +181,7 @@ public class Scorebord implements Listener {
                     break;
 
                 case PREGAME:
-                    this.currentEvent = "§6Game starting, please wait";
+                    this.currentEvent = "§6Starting soon";
                     break;
 
                 case TESTING:
@@ -259,7 +259,7 @@ public class Scorebord implements Listener {
             Score score7 = obj.getScore("§aGames score§f: " + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
             score7.setScore(3);
 
-            Score score8 = obj.getScore("§aTotal score§f: " + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
+            Score score8 = obj.getScore("§aTotal score§f: " + databases.getLocalPlayerData(players.getUniqueId()).getCurrentPoints());
             score8.setScore(2);
 
             Score score9 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━§c");

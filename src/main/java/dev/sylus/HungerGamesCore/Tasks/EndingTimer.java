@@ -41,7 +41,9 @@ public class EndingTimer extends BukkitRunnable {
         if (timer == 0){
             this.cancel();
             // Send the players back to the lobby server, will need bungeecord for this
-            Bukkit.broadcastMessage(ChatColor.RED + "You would have been sent back to the lobby");
+            for (Player players: Bukkit.getOnlinePlayers()){
+                serverUtil.sendPlayerToServer(players, "lobby");
+            }
             return;
         }
         timer--;
