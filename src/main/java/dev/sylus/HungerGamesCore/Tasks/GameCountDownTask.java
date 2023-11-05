@@ -3,12 +3,14 @@ package dev.sylus.HungerGamesCore.Tasks;
 import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Files.Files;
+import dev.sylus.HungerGamesCore.Game.Border;
 import dev.sylus.HungerGamesCore.Game.ChestManager;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
 import dev.sylus.HungerGamesCore.HungerGamesCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -23,12 +25,14 @@ public class GameCountDownTask extends BukkitRunnable {
     Files files;
     Databases databases;
     ChestManager chestManager;
+    Border border;
 
-    public GameCountDownTask(Game gameInstance, HungerGamesCore mainInstance, ChestManager chestManagerInstance, Files filesInstance) {
+    public GameCountDownTask(Game gameInstance, HungerGamesCore mainInstance, ChestManager chestManagerInstance, Files filesInstance, Border borderInstance) {
         game = gameInstance;
         main = mainInstance;
         chestManager = chestManagerInstance;
         files = filesInstance;
+        border = borderInstance;
     }
 
     @Override
@@ -42,6 +46,8 @@ public class GameCountDownTask extends BukkitRunnable {
             // Start
             cancel();
             game.setVunrability(false);
+            WorldBorder worldBorder = border.getWorldBorder();
+            worldBorder.setSize(1000);
 
             List<Integer> locations = files.getConfig("worldData").getIntegerList("worldData.pedostalLocations");
             List<Player> playersAlive = game.getPlayers();

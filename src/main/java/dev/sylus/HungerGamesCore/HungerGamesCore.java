@@ -67,16 +67,16 @@ public final class HungerGamesCore extends JavaPlugin {
         files = new Files(this, "worldData.yml");
         border = new Border(files);
         chestManager = new ChestManager(files, this);
-        game = new Game(this, chestManager, files);
+        game = new Game(this, chestManager, files, border);
         databases = new Databases(game, this, files);
         scorebord = new Scorebord(game, files, databases, getGameTimer(), this); // this might not work :/
         gameRunTask = new GameRunTask(game, this, databases, chestManager);
-        gameCountDownTask = new GameCountDownTask(game, this, chestManager, files);
+        gameCountDownTask = new GameCountDownTask(game, this, chestManager, files, border);
         gameTimer = new GameTimer(this, game, databases, chestManager);
 
         JoinAndLeave joinAndLeave = new JoinAndLeave(game, files, scorebord, gameTimer, databases);
         MovementFreeze movementFreeze = new MovementFreeze(game);
-        GameCountDownTask task = new GameCountDownTask(game, this, chestManager, files);
+        GameCountDownTask task = new GameCountDownTask(game, this, chestManager, files, border);
         PlayerDeathEvent playerDeathEvent = new PlayerDeathEvent(game, files, gameTimer, scorebord, databases);
         Damage damage = new Damage(game);
 
@@ -134,7 +134,7 @@ public final class HungerGamesCore extends JavaPlugin {
     }
 
     public GameCountDownTask getGameCountDownTask(){
-        return new GameCountDownTask(game, this, chestManager, files);
+        return new GameCountDownTask(game, this, chestManager, files, border);
     }
     public GameTimer getGameTimer(){
         return new GameTimer(this, game, databases, chestManager);
