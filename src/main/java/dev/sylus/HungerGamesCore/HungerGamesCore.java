@@ -4,10 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import dev.sylus.HungerGamesCore.Commands.*;
 import dev.sylus.HungerGamesCore.Enums.GameState;
-import dev.sylus.HungerGamesCore.Events.Damage;
-import dev.sylus.HungerGamesCore.Events.JoinAndLeave;
-import dev.sylus.HungerGamesCore.Events.MovementFreeze;
-import dev.sylus.HungerGamesCore.Events.PlayerDeathEvent;
+import dev.sylus.HungerGamesCore.Events.*;
 import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Files.Files;
 import dev.sylus.HungerGamesCore.Game.Border;
@@ -85,6 +82,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         GameCountDownTask task = new GameCountDownTask(game, this, chestManager, files, border, serverUtil);
         PlayerDeathEvent playerDeathEvent = new PlayerDeathEvent(game, files, gameTimer, scorebord, databases);
         Damage damage = new Damage(game);
+        NoSleep noSleep = new NoSleep();
 
         // Register the events
         getServer().getPluginManager().registerEvents(chestManager, this);
@@ -93,6 +91,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         getServer().getPluginManager().registerEvents(scorebord, this);
         getServer().getPluginManager().registerEvents(playerDeathEvent, this);
         getServer().getPluginManager().registerEvents(damage, this);
+        getServer().getPluginManager().registerEvents(noSleep, this);
 
         // Initialise the commands
         getCommand("gameStart").setExecutor(new GameStart(game));
@@ -137,6 +136,9 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
     public void onDisable() {
         // Plugin shutdown logic
         databases.closeConnection();
+        for (Player players: Bukkit.getOnlinePlayers()){ // Updates all points gotten in the game to the database
+            databases.addPointsToDB(players.getUniqueId()); // Updates the database with the local data
+        }
         this.getServer().getMessenger().unregisterOutgoingPluginChannel(this);
         this.getServer().getMessenger().unregisterIncomingPluginChannel(this);
     }
