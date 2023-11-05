@@ -88,7 +88,7 @@ public class Scorebord implements Listener {
                 break;
 
             case PREGAME:
-                this.currentEvent = "§6Game starting, please wait";
+                this.currentEvent = "§6Starting soon";
                 break;
 
             case TESTING:
@@ -115,7 +115,7 @@ public class Scorebord implements Listener {
                 break;
 
             case GAMESTART:
-                this.currentEvent = "§6Game is starting, please wait";
+                this.currentEvent = "§6Game is starting";
                 break;
 
         }
