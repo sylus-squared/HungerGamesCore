@@ -6,6 +6,7 @@ import dev.sylus.HungerGamesCore.Game.ChestManager;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
 import dev.sylus.HungerGamesCore.HungerGamesCore;
+import dev.sylus.HungerGamesCore.Utils.ServerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -18,13 +19,15 @@ public class GameRunTask extends BukkitRunnable {
     HungerGamesCore main;
     Databases databases;
     ChestManager chestManager;
+    ServerUtil serverUtil;
 
-    public GameRunTask(Game game, HungerGamesCore mainInstance, Databases databasesInstance, ChestManager chestManagerInstance) {
+    public GameRunTask(Game game, HungerGamesCore mainInstance, Databases databasesInstance, ChestManager chestManagerInstance, ServerUtil serverUtilInstance) {
         this.game = game;
         // this.game.assignSpawnPositions();
         main = mainInstance;
         databases = databasesInstance;
         chestManager = chestManagerInstance;
+        serverUtil = serverUtilInstance;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class GameRunTask extends BukkitRunnable {
             game.setMovement(true);
             game.setVunrability(true);
             main.setCanOpenChests(true);
-            new GameTimer(main, game, databases, chestManager).runTaskTimer(main, 0, 20);
+            new GameTimer(main, game, databases, chestManager, serverUtil).runTaskTimer(main, 0, 20);
         } else if (startIn == 10 || startIn <= 5) {
             main.refreshScorebordAll();
             Bukkit.broadcastMessage("§eThe game will begin in §c" + startIn + " §esecond" + (startIn == 1 ? "" : "s"));

@@ -7,6 +7,7 @@ import dev.sylus.HungerGamesCore.Game.ChestManager;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
 import dev.sylus.HungerGamesCore.HungerGamesCore;
+import dev.sylus.HungerGamesCore.Utils.ServerUtil;
 import org.bukkit.*;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -30,18 +31,20 @@ public class GameTimer extends BukkitRunnable {
     ChestManager chestManager;
     Player player;
     String playerName;
+    ServerUtil serverUtil;
     int refillTimer = 20; // 300 5 minutes
     int secondHalfTimerCountdown = 30; // 180
 
     int deathmatchCountdown = 120;
 
-    public GameTimer(HungerGamesCore mainInstance, Game gameInstance, Databases databasesInstance, ChestManager chestManagerInstance){
+    public GameTimer(HungerGamesCore mainInstance, Game gameInstance, Databases databasesInstance, ChestManager chestManagerInstance, ServerUtil serverUtilInstance){
         main = mainInstance;
         game = gameInstance;
         files = new Files(main, "worldData.yml");
         databases = databasesInstance;
         scorebord = new Scorebord(game, files, databases, this, main);
         chestManager = chestManagerInstance;
+        serverUtil = serverUtilInstance;
     }
 
     @Override
@@ -180,10 +183,10 @@ public class GameTimer extends BukkitRunnable {
             for (Player players: Bukkit.getOnlinePlayers()){
                 players.sendTitle(ChatColor.RED + playerName + " WINS", ChatColor.YELLOW + "You will return to the lobby in 20 seconds", 10, 60, 10);
             }
-            new EndingTimer(game, main, false).runTaskTimer(main, 0, 20);
+            new EndingTimer(game, main, false, serverUtil).runTaskTimer(main, 0, 20);
             scorebord.refreshScorebordAll();
         } else {
-            new EndingTimer(game, main, true).runTaskTimer(main, 0, 20);
+            new EndingTimer(game, main, true, serverUtil).runTaskTimer(main, 0, 20);
 
             for (Player players : Bukkit.getOnlinePlayers()) {
                 players.sendTitle(ChatColor.RED + "Its a DRAW", ChatColor.YELLOW + "You will return to the lobby in 20 seconds", 10, 60, 10);

@@ -3,6 +3,7 @@ package dev.sylus.HungerGamesCore.Tasks;
 import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.HungerGamesCore;
+import dev.sylus.HungerGamesCore.Utils.ServerUtil;
 import org.bukkit.*;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -19,11 +20,13 @@ public class EndingTimer extends BukkitRunnable {
     World world;
     Location location;
     Boolean isDraw;
+    ServerUtil serverUtil;
 
-    public EndingTimer(Game gameInstance, HungerGamesCore mainInstance, Boolean isDrawInstance){
+    public EndingTimer(Game gameInstance, HungerGamesCore mainInstance, Boolean isDrawInstance, ServerUtil serverUtilInstacne){
         game = gameInstance;
         main = mainInstance;
         isDraw = isDrawInstance;
+        serverUtil = serverUtilInstacne;
     }
 
 
