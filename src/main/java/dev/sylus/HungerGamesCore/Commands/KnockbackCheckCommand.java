@@ -30,7 +30,9 @@ public class KnockbackCheckCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "Player not found or is not online");
             return true;
         }
-        new KnockbackCheck(target).runTaskTimer(main, 0, 20);
+        Player commandSender = (Player) sender;
+
+        new KnockbackCheck(target, commandSender).runTaskTimer(main, 0, 20);
         return true;
     }
 }
