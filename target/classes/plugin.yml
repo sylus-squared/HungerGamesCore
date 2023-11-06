@@ -55,6 +55,15 @@ commands:
     usage: /join <args>
     description: This command allows players to join other servers
 
+  lobby:
+    usage: /lobby
+    description: This command sends the player to the lobby
+
+  knockbackTest:
+    usage: /knockbackCheck <args>
+    description: Checks the player for antiKB
+    permission: hungergamescore.checks
+
 permissions:
   hungergamescore.startgame:
     description: Allows players to user the /gameStart command
@@ -79,6 +88,9 @@ permissions:
 
   hungergamescore.resetPoints:
     description: Allows the makes the player to use the command /resetPoints
+
+  hungergamescore.checks:
+    description: Allows the player to use the check commands
 
 
 

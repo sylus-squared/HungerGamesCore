@@ -14,6 +14,7 @@ import dev.sylus.HungerGamesCore.Game.Scorebord;
 import dev.sylus.HungerGamesCore.Tasks.GameCountDownTask;
 import dev.sylus.HungerGamesCore.Tasks.GameRunTask;
 import dev.sylus.HungerGamesCore.Tasks.GameTimer;
+import dev.sylus.HungerGamesCore.Utils.KnockbackCheck;
 import dev.sylus.HungerGamesCore.Utils.ServerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
+import org.checkerframework.checker.units.qual.K;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,8 +60,8 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
     ChestManager chestManager;
     Border border;
     ServerUtil serverUtil;
+    KnockbackCheck knockbackCheck;
     boolean canOpenChests = false;
-
 
     @Override
     public void onEnable() {
@@ -71,7 +73,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         border = new Border(files);
         chestManager = new ChestManager(files, this);
         game = new Game(this, chestManager, files, border, serverUtil, databases);
-        databases = new Databases(game, this, files);
+        databases = new Databases(this, files);
         scorebord = new Scorebord(game, files, databases, getGameTimer(), this); // this might not work :/
         gameRunTask = new GameRunTask(game, this, databases, chestManager, serverUtil);
         gameCountDownTask = new GameCountDownTask(game, this, chestManager, files, border, serverUtil, databases);
@@ -105,6 +107,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         getCommand("resetPoints").setExecutor(new ResetPoints(databases, scorebord));
         getCommand("join").setExecutor(new JoinServer(serverUtil));
         getCommand("lobby").setExecutor(new Lobby(serverUtil));
+        getCommand("knockbackTest").setExecutor(new KnockbackCheckCommand(this));
 
         saveDefaultConfig();
 

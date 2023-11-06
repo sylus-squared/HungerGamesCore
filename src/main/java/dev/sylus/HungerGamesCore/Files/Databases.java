@@ -20,7 +20,6 @@ import java.util.logging.Level;
 public class Databases {
     // This file will hold all the methods to get data from the players table in the SQLite (Or MySQL) database
 
-    Game game;
     HungerGamesCore main;
     Files files;
     Connection connection;
@@ -32,8 +31,7 @@ public class Databases {
     UUID playerUUID;
     PlayerData playerData;
 
-    public Databases(Game gameInstance, HungerGamesCore hungerGamesCoreInstance, Files filesInstance){ // Constructor
-        game = gameInstance;
+    public Databases(HungerGamesCore hungerGamesCoreInstance, Files filesInstance){ // Constructor
         main = hungerGamesCoreInstance;
         files = filesInstance;
         username = files.getConfig("config.yml").getString("database.username");
