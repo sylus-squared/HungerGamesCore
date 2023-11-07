@@ -128,7 +128,9 @@ public class GameTimer extends BukkitRunnable {
                 } else if (deathmatchCountdown == 110){
                     Bukkit.broadcastMessage("§ePlayers will become vulnerable in §c1 §eseconds");
                 }
-
+                for (Player players: Bukkit.getOnlinePlayers()){
+                    players.playSound(players.getLocation(), Sound.BLOCK_TRIPWIRE_ATTACH, 1, 1);
+                }
             }
             if (deathmatchCountdown == 108){
                 for (Player players: Bukkit.getOnlinePlayers()){
