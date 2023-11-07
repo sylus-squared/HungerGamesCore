@@ -19,8 +19,11 @@ public class Damage implements Listener {
 
     @EventHandler
     public void playerMoveEvent(EntityDamageEvent event) {
-        if (!(game.getDamageState())){
-            event.setCancelled(true);
+        if (event.getEntity() instanceof Player){
+            if (!(game.getDamageState())){
+                event.setCancelled(true);
+            }
         }
+
     }
 }
