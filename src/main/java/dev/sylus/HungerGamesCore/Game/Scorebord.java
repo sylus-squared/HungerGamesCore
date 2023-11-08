@@ -24,6 +24,7 @@ public class Scorebord implements Listener {
     GameTimer gameTimer;
     String formatedTime;
     String currentEvent = "§6Not started";
+    String nextEvent = "§6Not started";
     HungerGamesCore main;
 
     /*
@@ -63,14 +64,14 @@ public class Scorebord implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        this.refreshScorebordAll();
         createBoard(event.getPlayer());
+        this.refreshScorebordAll();
     }
 
     public void createBoard(Player player) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy", ChatColor.translateAlternateColorCodes('&', ChatColor.BOLD + "&6The Hunger Games"));
+        Objective obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy", "§6§lThe Hunger Games");
         // obj.setDisplayName("");
 
         switch (game.getState()) {
@@ -84,15 +85,18 @@ public class Scorebord implements Listener {
                 } else {
                     this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
                 }
-                this.currentEvent = "§cChest refil in: §e" + formatedTime;
+                nextEvent = "§fChest refil in:";
+                this.currentEvent = " §a" + formatedTime;
                 break;
 
             case PREGAME:
-                this.currentEvent = "§6Starting soon";
+                nextEvent = "§6Starting soon";
+                this.currentEvent = "§3";
                 break;
 
             case TESTING:
-                this.currentEvent = "§cTESTING";
+                nextEvent = "§cTESTING";
+                this.currentEvent = "§3";
                 break;
 
             case SECONDHALF:
@@ -107,55 +111,60 @@ public class Scorebord implements Listener {
                         this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
                     }
                 }
-                this.currentEvent = "§cDeathmatch begins: §e" + formatedTime;
+                nextEvent = "§fDeathmatch in:";
+                this.currentEvent = "§a" + formatedTime;
                 break;
 
             case DEATHMATCH:
-                this.currentEvent = "Deathmatch: ";
+                nextEvent = "§fGame ends in:";
+                this.currentEvent = "§a" + formatedTime;
                 break;
 
             case GAMESTART:
-                this.currentEvent = "§6Game is starting";
+                nextEvent = "§6Game is starting";
+                this.currentEvent = "§3";
                 break;
 
         }
 
+        Score score14 = obj.getScore("§7Game " + numberString + "/3");
+        score14.setScore(11);
 
-            Score score = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━§7");
-            score.setScore(10);
+        Score score13 = obj.getScore("§7 "); // New line
+        score13.setScore(10);
 
-            Score score1 = obj.getScore("§bGame§f: " + numberString + "/§b3");
-            score1.setScore(9);
+        Score score12 = obj.getScore(nextEvent);
+        score12.setScore(9);
 
-            Score score2 = obj.getScore("§bPlayers alive§f: " + ChatColor.GREEN + game.getPlayerNumbers());
-            score2.setScore(8);
+        Score score11 = obj.getScore(currentEvent);// ━━━━━━━━━━━━━━━━━━§7
+        score11.setScore(8);
 
-            Score score3 = obj.getScore("§6Kills§f: " + databases.getLocalPlayerData(player.getUniqueId()).getCurrentKills());
-            score3.setScore(7);
+        Score score = obj.getScore("§f "); // New line
+        score.setScore(7);
 
-            Score score4 = obj.getScore("§fNext event");
-            score4.setScore(6);
+        Score score1 = obj.getScore("§fPlayers alive: §a" + game.getPlayerNumbers() + "/" + "24");
+        score1.setScore(6);
 
-            Score score5 = obj.getScore(ChatColor.RED + currentEvent);
-            score5.setScore(5);
+        Score score2 = obj.getScore("§b"); // New Line
+        score2.setScore(5);
 
-            Score score6 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━");
-            score6.setScore(4);
+        Score score3 = obj.getScore("☠" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentKills() + "§7|§f☩" + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints());
+        score3.setScore(4);
 
-            Score score7 = obj.getScore("§aGames score§f: " + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints()); // Points gained during this game
-            score7.setScore(3);
+        Score score4 = obj.getScore("§1"); // New line
+        score4.setScore(3);
 
-            Score score8 = obj.getScore("§aTotal score§f: " + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints()); // All points for all games
-            score8.setScore(2);
+        Score score5 = obj.getScore("§fTotal points: §a" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints());
+        score5.setScore(2);
 
-            Score score9 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━§c");
-            score9.setScore(1);
+        Score score6 = obj.getScore("§2"); // New line
+        score6.setScore(1);
 
-            Score score10 = obj.getScore(ChatColor.BLUE + serverCode);
-            score10.setScore(0);
+        Score score7 = obj.getScore("§6" + serverCode); // Points gained during this game
+        score7.setScore(0);
 
-            player.setScoreboard(board);
-            refreshScorebordAll();
+        player.setScoreboard(board);
+        refreshScorebordAll();
         }
 
 
@@ -165,8 +174,14 @@ public class Scorebord implements Listener {
             databases = main.getDatabases();
         }
 
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        Scoreboard board = manager.getNewScoreboard();
+        Objective obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy","§6§lThe Hunger Games");
+        // obj.setDisplayName("");
+        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
         for (Player players: Bukkit.getOnlinePlayers()){
-            switch (game.getState()){
+            switch (game.getState()) {
                 case ACTIVE:
                     int seconds = Integer.parseInt(gameTimer.getTimeLeft());
                     int minutes = seconds / 60;
@@ -175,22 +190,24 @@ public class Scorebord implements Listener {
                     if (minutes == 0) {
                         this.formatedTime = String.format("%02d", seconds); // No minutes, formatted as 0:seconds
                     } else {
-                        this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formatted as minutes:seconds
+                        this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
                     }
-                    this.currentEvent = "§cChest refil in: §e" + formatedTime;
+                    nextEvent = "§fChest refil in:";
+                    this.currentEvent = " §a" + formatedTime;
                     break;
 
                 case PREGAME:
+                    nextEvent = "§fNext event";
                     this.currentEvent = "§6Starting soon";
                     break;
 
                 case TESTING:
+                    nextEvent = "§fNext event";
                     this.currentEvent = "§cTESTING";
                     break;
 
                 case SECONDHALF:
-                   // Bukkit.getLogger().log(Level.INFO, secondHalfTimer.getTimeLeft() + " This is the time left");
-                    if (!(gameTimer.getTimeLeft().equals("Not started") || gameTimer.getTimeLeft().equals("Deathmatch time"))) {
+                    if (!(gameTimer.getTimeLeft().equals("Not started") || gameTimer.getTimeLeft().equals("Refil over"))) {
                         seconds = Integer.parseInt(gameTimer.getTimeLeft());
                         minutes = seconds / 60;
                         seconds = seconds % 60;
@@ -201,74 +218,60 @@ public class Scorebord implements Listener {
                             this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
                         }
                     }
-                    this.currentEvent = "§cDeathmatch: §e" + formatedTime;
+                    nextEvent = "§fDeathmatch in:";
+                    this.currentEvent = "§a" + formatedTime;
                     break;
 
                 case DEATHMATCH:
-                    if (!(gameTimer.getTimeLeft().equals("Not started") || gameTimer.getTimeLeft().equals("Deathmatch time"))) {
-                        seconds = Integer.parseInt(gameTimer.getTimeLeft());
-                        minutes = seconds / 60;
-                        seconds = seconds % 60;
-
-                        if (minutes == 0) {
-                            this.formatedTime = String.format("%02d", seconds); // No minutes, formatted as 0:seconds
-                        } else {
-                            this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
-                        }
-                    }
-
-                    this.currentEvent = "§6Game end: §e" + formatedTime ;
+                    nextEvent = "§fGame ends in:";
+                    this.currentEvent = "§a" + formatedTime;
                     break;
 
                 case GAMESTART:
-                    this.currentEvent = "§6Game starting";
+                    nextEvent = "§fNext event";
+                    this.currentEvent = "§6Game is starting";
                     break;
-
-                case ENDING:
-                    this.currentEvent = "§6Game over!";
 
             }
 
-            ScoreboardManager manager = Bukkit.getScoreboardManager();
-            Scoreboard board = manager.getNewScoreboard();
-            Objective obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy", ChatColor.translateAlternateColorCodes('&', "&6The Hunger Games"));
-            // obj.setDisplayName("");
-            obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+            Score score14 = obj.getScore("§7Game " + numberString + "/3");
+            score14.setScore(11);
 
-            Score score = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━§7");
-            score.setScore(10);
+            Score score13 = obj.getScore("§7 "); // New line
+            score13.setScore(10);
 
-            Score score1 = obj.getScore("§bGame§f: " + numberString + "/§b3");
-            score1.setScore(9);
+            Score score12 = obj.getScore(nextEvent);
+            score12.setScore(9);
 
-            Score score2 = obj.getScore("§bPlayers alive§f: " + ChatColor.GREEN + game.getPlayerNumbers());
-            score2.setScore(8);
+            Score score11 = obj.getScore(currentEvent);// ━━━━━━━━━━━━━━━━━━§7
+            score11.setScore(8);
 
-            Score score3 = obj.getScore("§6Kills§f: " + databases.getLocalPlayerData(players.getUniqueId()).getCurrentKills());
-            score3.setScore(7);
+            Score score = obj.getScore("§f "); // New line
+            score.setScore(7);
 
-            Score score4 = obj.getScore("§fNext event");
-            score4.setScore(6);
+            Score score8 = obj.getScore("§fPlayers alive: §a" + game.getPlayerNumbers() + "/" + "24");
+            score8.setScore(6);
 
-            Score score5 = obj.getScore(ChatColor.RED + currentEvent);
-            score5.setScore(5);
+            Score score2 = obj.getScore("§b"); // New Line
+            score2.setScore(5);
 
-            Score score6 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━"); // This is not showing for some reason
-            score6.setScore(4);
+            Score score3 = obj.getScore("§fKills §a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentKills() + "§7 | §fPoints §a" + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
+            score3.setScore(4);
 
-            Score score7 = obj.getScore("§aGames score§f: " + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
-            score7.setScore(3);
+            Score score4 = obj.getScore("§1"); // New line
+            score4.setScore(3);
 
-            Score score8 = obj.getScore("§aTotal score§f: " + databases.getLocalPlayerData(players.getUniqueId()).getCurrentPoints());
-            score8.setScore(2);
+            Score score5 = obj.getScore("§fTotal points: §a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentPoints());
+            score5.setScore(2);
 
-            Score score9 = obj.getScore(ChatColor.WHITE + "━━━━━━━━━━━━━━━━━━━━━§c");
-            score9.setScore(1);
+            Score score1 = obj.getScore("§2"); // New line
+            score1.setScore(1);
 
-            Score score10 = obj.getScore(ChatColor.BLUE + serverCode);
-            score10.setScore(0);
+            Score score7 = obj.getScore("§6" + serverCode); // Points gained during this game
+            score7.setScore(0);
 
             players.setScoreboard(board);
+
         }
 
     }

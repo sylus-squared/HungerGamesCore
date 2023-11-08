@@ -32,8 +32,8 @@ public class GameTimer extends BukkitRunnable {
     Player player;
     String playerName;
     ServerUtil serverUtil;
-    int refillTimer = 20; // 300 5 minutes
-    int secondHalfTimerCountdown = 30; // 180
+    int refillTimer = 300; // 300 5 minutes
+    int secondHalfTimerCountdown = 180; // 180
 
     int deathmatchCountdown = 120;
 
@@ -172,7 +172,7 @@ public class GameTimer extends BukkitRunnable {
 
         if (stoppedByCommand){
             for (Player players: Bukkit.getOnlinePlayers()){
-                players.sendTitle(ChatColor.RED + "Game stopped", ChatColor.YELLOW + "Please await further instructions", 10, 30, 10);
+                players.sendTitle(ChatColor.RED + "Game stopped", ChatColor.YELLOW + "Please await further instructions", 10, 60, 10);
                 players.playSound(players.getLocation(), Sound.ENTITY_BLAZE_DEATH, 1, 1);
                 Bukkit.getLogger().log(Level.WARNING, "Game stopped by an admin");
                 scorebord.refreshScorebordAll();
