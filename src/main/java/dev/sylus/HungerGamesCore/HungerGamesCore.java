@@ -74,7 +74,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         border = new Border(files);
         chestManager = new ChestManager(files, this);
         game = new Game(this, chestManager, files, border, serverUtil, databases);
-        scorebord = new Scorebord(game, files, databases, getGameTimer(), this); // this might not work :/
+        scorebord = new Scorebord(game, files, databases, getGameTimer(), this);
         gameRunTask = new GameRunTask(game, this, databases, chestManager, serverUtil);
         gameCountDownTask = new GameCountDownTask(game, this, chestManager, files, border, serverUtil, databases);
         gameTimer = new GameTimer(this, game, databases, chestManager, serverUtil);
