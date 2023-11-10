@@ -108,6 +108,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         getCommand("join").setExecutor(new JoinServer(serverUtil));
         getCommand("lobby").setExecutor(new Lobby(serverUtil));
         getCommand("knockbackTest").setExecutor(new KnockbackCheckCommand(this));
+        getCommand("sendPlayer").setExecutor(new SendPlayer(serverUtil));
 
         saveDefaultConfig();
 

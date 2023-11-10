@@ -64,6 +64,11 @@ commands:
     description: Checks the player for antiKB
     permission: hungergamescore.checks
 
+  sendPlayer:
+    usage: /sendPlayer <args>
+    description: Sends the target player, or all players, to the specified server
+    permission: hungergamescore.sendplayer
+
 permissions:
   hungergamescore.startgame:
     description: Allows players to user the /gameStart command
@@ -91,6 +96,9 @@ permissions:
 
   hungergamescore.checks:
     description: Allows the player to use the check commands
+
+  hungergamescore.sendplayer:
+    description: Allows the player to send players to servers
 
 
 
