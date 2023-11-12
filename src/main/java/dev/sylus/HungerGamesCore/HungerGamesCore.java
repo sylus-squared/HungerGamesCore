@@ -95,6 +95,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         getServer().getPluginManager().registerEvents(damage, this);
         getServer().getPluginManager().registerEvents(noSleep, this);
         getServer().getPluginManager().registerEvents(new TridentMachineGun(this), this);
+        getServer().getPluginManager().registerEvents(new EnchantingTable(), this);
 
         // Initialise the commands
         getCommand("gameStart").setExecutor(new GameStart(game));

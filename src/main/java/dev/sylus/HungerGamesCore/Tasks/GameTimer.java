@@ -153,16 +153,16 @@ public class GameTimer extends BukkitRunnable {
     public String getTimeLeft() {
         if (game.getState() == GameState.gameState.SECONDHALF) {
             if (secondHalfTimerCountdown == 180) {
-                return "Not started";
+                return "0";
             } else if (secondHalfTimerCountdown < 1) {
-                return "Deathmatch time";
+                return "0";
             }
             return String.valueOf(secondHalfTimerCountdown);
         } else if (game.getState() == GameState.gameState.ACTIVE){
                 if (refillTimer == 300) {
-                    return "Not started";
+                    return "0";
                 } else if (refillTimer < 1) {
-                    return "Refill over";
+                    return "0";
                 }
                 return String.valueOf(refillTimer);
         } else { // Deathmatch time
