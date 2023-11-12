@@ -50,8 +50,7 @@ public class GameCountDownTask extends BukkitRunnable {
             // Start
             cancel();
             game.setVunrability(false);
-            WorldBorder worldBorder = border.getWorldBorder();
-            worldBorder.setSize(1000);
+            border.setBorderSize(10000);
 
             List<Integer> locations = files.getConfig("worldData").getIntegerList("worldData.pedostalLocations");
             List<Player> playersAlive = game.getPlayers();
@@ -67,7 +66,6 @@ public class GameCountDownTask extends BukkitRunnable {
                 iterator = iterator + 3;
                 player.teleport(location);
             }
-            border.setBorderSize(files.getConfig("worldData.yml").getInt("worldData.startingBorderSize"));
 
             // Remember to set the correct world border size (Just bigger than the arena)
             // Actually im not going to bother with the border thingy, I will just use small maps
