@@ -94,6 +94,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         getServer().getPluginManager().registerEvents(playerDeathEvent, this);
         getServer().getPluginManager().registerEvents(damage, this);
         getServer().getPluginManager().registerEvents(noSleep, this);
+        getServer().getPluginManager().registerEvents(new TridentMachineGun(this), this);
 
         // Initialise the commands
         getCommand("gameStart").setExecutor(new GameStart(game));
@@ -109,6 +110,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         getCommand("lobby").setExecutor(new Lobby(serverUtil));
         getCommand("knockbackTest").setExecutor(new KnockbackCheckCommand(this));
         getCommand("sendPlayer").setExecutor(new SendPlayer(serverUtil));
+        getCommand("giveMachineGun").setExecutor(new GiveMachineTrident());
 
         saveDefaultConfig();
 

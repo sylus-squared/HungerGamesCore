@@ -62,12 +62,17 @@ commands:
   knockbackTest:
     usage: /knockbackCheck <args>
     description: Checks the player for antiKB
-    permission: hungergamescore.checks
+    permission: hungergamescore.admin
 
   sendPlayer:
     usage: /sendPlayer <args>
     description: Sends the target player, or all players, to the specified server
     permission: hungergamescore.sendplayer
+
+  giveMachineGun:
+    description: Gives the player a trident that acts like a machine gun
+    usage: /giveMachineGun
+    permission: hungerGamesLobby.admin
 
 permissions:
   hungergamescore.startgame:
@@ -94,11 +99,11 @@ permissions:
   hungergamescore.resetPoints:
     description: Allows the makes the player to use the command /resetPoints
 
-  hungergamescore.checks:
-    description: Allows the player to use the check commands
-
   hungergamescore.sendplayer:
     description: Allows the player to send players to servers
+
+  hungergamescore.admin:
+    description: allows the player to use administrator commands
 
 
 
