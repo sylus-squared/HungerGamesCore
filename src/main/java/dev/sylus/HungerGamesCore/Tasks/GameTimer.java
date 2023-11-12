@@ -3,6 +3,7 @@ package dev.sylus.HungerGamesCore.Tasks;
 import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Files.Files;
+import dev.sylus.HungerGamesCore.Game.Border;
 import dev.sylus.HungerGamesCore.Game.ChestManager;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.Scorebord;
@@ -32,12 +33,13 @@ public class GameTimer extends BukkitRunnable {
     Player player;
     String playerName;
     ServerUtil serverUtil;
+    Border border;
     int refillTimer = 300; // 300 5 minutes
     int secondHalfTimerCountdown = 180; // 180
 
     int deathmatchCountdown = 120;
 
-    public GameTimer(HungerGamesCore mainInstance, Game gameInstance, Databases databasesInstance, ChestManager chestManagerInstance, ServerUtil serverUtilInstance){
+    public GameTimer(HungerGamesCore mainInstance, Game gameInstance, Databases databasesInstance, ChestManager chestManagerInstance, ServerUtil serverUtilInstance, Border borderInstance){
         main = mainInstance;
         game = gameInstance;
         files = new Files(main, "worldData.yml");
@@ -45,6 +47,7 @@ public class GameTimer extends BukkitRunnable {
         scorebord = new Scorebord(game, files, databases, this, main);
         chestManager = chestManagerInstance;
         serverUtil = serverUtilInstance;
+        border = borderInstance;
     }
 
     @Override
@@ -97,6 +100,7 @@ public class GameTimer extends BukkitRunnable {
                 double y = files.getDeathmatchSpawnY();
                 double z = files.getDeathmatchSpawnZ();
                 Location location = new Location(Bukkit.getWorld("world"), x, y, z);
+                border.setBorderSize(files.getConfig("worldData.yml").getInt("worldData.startingBorderSize"));
 
                 for (Player players: Bukkit.getOnlinePlayers()){
                     players.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 5));

@@ -67,10 +67,11 @@ public class GameCountDownTask extends BukkitRunnable {
                 iterator = iterator + 3;
                 player.teleport(location);
             }
+            border.setBorderSize(files.getConfig("worldData.yml").getInt("worldData.startingBorderSize"));
 
             // Remember to set the correct world border size (Just bigger than the arena)
             // Actually im not going to bother with the border thingy, I will just use small maps
-            new GameRunTask(game, main, databases, chestManager, serverUtil).runTaskTimer(main, 0, 20);
+            new GameRunTask(game, main, databases, chestManager, serverUtil, border).runTaskTimer(main, 0, 20);
         } else {
             if (time == 15 || time == 10 || time <= 5) {
                Bukkit.broadcastMessage("§aYou will be teleported in §c" + time + " §aseconds");

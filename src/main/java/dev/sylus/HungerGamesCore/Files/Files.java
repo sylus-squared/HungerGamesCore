@@ -81,23 +81,23 @@ public class Files {
     }
 
     public int getMapRespawnX(){ // Again this will at some point be gotten from a YAML file
-        return 61;
+      return getConfig("worldData.yml").getInt("worldData.spawnLocationX");
     }
     public int getMapRespawnY(){
-        return 86;
+        return getConfig("worldData.yml").getInt("worldData.spawnLocationY");
     }
     public int getMapRespawnZ(){
-        return -451;
+        return getConfig("worldData.yml").getInt("worldData.spawnLocationZ");
     }
 
     public int getDeathmatchSpawnX(){
-        return 61;
+        return getConfig("worldData.yml").getInt("worldData.deathmatchX");
     }
     public int getDeathmatchSpawnY(){
-        return 86;
+        return getConfig("worldData.yml").getInt("worldData.deathmatchY");
     }
     public int getDeathmatchSpawnZ(){
-        return -451;
+        return getConfig("worldData.yml").getInt("worldData.deathmatchZ");
     }
 
 

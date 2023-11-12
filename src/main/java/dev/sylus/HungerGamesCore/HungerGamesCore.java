@@ -75,9 +75,9 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         chestManager = new ChestManager(files, this);
         game = new Game(this, chestManager, files, border, serverUtil, databases);
         scorebord = new Scorebord(game, files, databases, getGameTimer(), this);
-        gameRunTask = new GameRunTask(game, this, databases, chestManager, serverUtil);
+        gameRunTask = new GameRunTask(game, this, databases, chestManager, serverUtil, border);
         gameCountDownTask = new GameCountDownTask(game, this, chestManager, files, border, serverUtil, databases);
-        gameTimer = new GameTimer(this, game, databases, chestManager, serverUtil);
+        gameTimer = new GameTimer(this, game, databases, chestManager, serverUtil, border);
 
         JoinAndLeave joinAndLeave = new JoinAndLeave(game, files, scorebord, gameTimer, databases);
         MovementFreeze movementFreeze = new MovementFreeze(game);
@@ -171,7 +171,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         return new GameCountDownTask(game, this, chestManager, files, border, serverUtil, databases);
     }
     public GameTimer getGameTimer(){
-        return new GameTimer(this, game, databases, chestManager, serverUtil);
+        return new GameTimer(this, game, databases, chestManager, serverUtil, border);
     } // I should not have done this, it caused so many issues :(
 
     public void refreshScorebordAll(){
