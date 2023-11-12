@@ -116,6 +116,18 @@ public class Scorebord implements Listener {
                 break;
 
             case DEATHMATCH:
+                if (!(gameTimer.getTimeLeft().equals("Not started") || gameTimer.getTimeLeft().equals("Refil over"))) {
+                    seconds = Integer.parseInt(gameTimer.getTimeLeft());
+                    minutes = seconds / 60;
+                    seconds = seconds % 60;
+
+                    if (minutes == 0) {
+                        this.formatedTime = String.format("%02d", seconds); // No minutes, formatted as 0:seconds
+                    } else {
+                        this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
+                    }
+                }
+
                 nextEvent = "§fGame ends in:";
                 this.currentEvent = "§a" + formatedTime;
                 break;
@@ -125,43 +137,48 @@ public class Scorebord implements Listener {
                 this.currentEvent = "§3";
                 break;
 
+            case ENDING:
+                nextEvent = "§fNext event";
+                this.currentEvent = "§6Game over";
+                break;
+
         }
 
-        Score score14 = obj.getScore("§7Game " + numberString + "/3");
-        score14.setScore(11);
+        Score score11 = obj.getScore("§7Game " + numberString + "/3");
+        score11.setScore(11);
 
-        Score score13 = obj.getScore("§7 "); // New line
-        score13.setScore(10);
+        Score score10 = obj.getScore("§7 "); // New line
+        score10.setScore(10);
 
-        Score score12 = obj.getScore(nextEvent);
-        score12.setScore(9);
+        Score score9 = obj.getScore(nextEvent);
+        score9.setScore(9);
 
-        Score score11 = obj.getScore(currentEvent);// ━━━━━━━━━━━━━━━━━━§7
-        score11.setScore(8);
+        Score score8 = obj.getScore(currentEvent);// ━━━━━━━━━━━━━━━━━━§7
+        score8.setScore(8);
 
-        Score score = obj.getScore("§f "); // New line
-        score.setScore(7);
+        Score score7 = obj.getScore("§f "); // New line
+        score7.setScore(7);
 
-        Score score1 = obj.getScore("§fPlayers alive: §a" + game.getPlayerNumbers() + "/" + "24");
-        score1.setScore(6);
+        Score score6 = obj.getScore("§fPlayers alive: §a" + game.getPlayerNumbers() + "/" + "24");
+        score6.setScore(6);
 
-        Score score2 = obj.getScore("§b"); // New Line
-        score2.setScore(5);
+        Score score5 = obj.getScore("§b"); // New Line
+        score5.setScore(5);
 
-        Score score3 = obj.getScore("☠" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentKills() + "§7|§f☩" + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints());
-        score3.setScore(4);
+        Score score4 = obj.getScore("§fKills §a" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentKills() + "§7 | §fPoints §a" + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints());
+        score4.setScore(4);
 
-        Score score4 = obj.getScore("§1"); // New line
-        score4.setScore(3);
+        Score score3 = obj.getScore("§1"); // New line
+        score3.setScore(3);
 
-        Score score5 = obj.getScore("§fTotal points: §a" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints());
-        score5.setScore(2);
+        Score score2 = obj.getScore("§fTotal points: §a" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints());
+        score2.setScore(2);
 
-        Score score6 = obj.getScore("§2"); // New line
-        score6.setScore(1);
+        Score score1 = obj.getScore("§2"); // New line
+        score1.setScore(1);
 
-        Score score7 = obj.getScore("§6" + serverCode); // Points gained during this game
-        score7.setScore(0);
+        Score score0 = obj.getScore("§6" + serverCode); // Points gained during this game
+        score0.setScore(0);
 
         player.setScoreboard(board);
         refreshScorebordAll();
@@ -223,6 +240,18 @@ public class Scorebord implements Listener {
                     break;
 
                 case DEATHMATCH:
+                    if (!(gameTimer.getTimeLeft().equals("Not started") || gameTimer.getTimeLeft().equals("Refil over"))) {
+                        seconds = Integer.parseInt(gameTimer.getTimeLeft());
+                        minutes = seconds / 60;
+                        seconds = seconds % 60;
+
+                        if (minutes == 0) {
+                            this.formatedTime = String.format("%02d", seconds); // No minutes, formatted as 0:seconds
+                        } else {
+                            this.formatedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
+                        }
+                    }
+
                     nextEvent = "§fGame ends in:";
                     this.currentEvent = "§a" + formatedTime;
                     break;
@@ -232,43 +261,47 @@ public class Scorebord implements Listener {
                     this.currentEvent = "§6Game is starting";
                     break;
 
+                case ENDING:
+                    nextEvent = "§fNext event";
+                    this.currentEvent = "§6Game over";
+                    break;
             }
 
-            Score score14 = obj.getScore("§7Game " + numberString + "/3");
-            score14.setScore(11);
+            Score score11 = obj.getScore("§7Game " + numberString + "/3");
+            score11.setScore(11);
 
-            Score score13 = obj.getScore("§7 "); // New line
-            score13.setScore(10);
+            Score score10 = obj.getScore("§7 "); // New line
+            score10.setScore(10);
 
-            Score score12 = obj.getScore(nextEvent);
-            score12.setScore(9);
+            Score score9 = obj.getScore(nextEvent);
+            score9.setScore(9);
 
-            Score score11 = obj.getScore(currentEvent);// ━━━━━━━━━━━━━━━━━━§7
-            score11.setScore(8);
+            Score score8 = obj.getScore(currentEvent);// ━━━━━━━━━━━━━━━━━━§7
+            score8.setScore(8);
 
-            Score score = obj.getScore("§f "); // New line
-            score.setScore(7);
+            Score score7 = obj.getScore("§f "); // New line
+            score7.setScore(7);
 
-            Score score8 = obj.getScore("§fPlayers alive: §a" + game.getPlayerNumbers() + "/" + "24");
-            score8.setScore(6);
+            Score score6 = obj.getScore("§fPlayers alive: §a" + game.getPlayerNumbers() + "/" + "24");
+            score6.setScore(6);
 
-            Score score2 = obj.getScore("§b"); // New Line
-            score2.setScore(5);
+            Score score5 = obj.getScore("§b"); // New Line
+            score5.setScore(5);
 
-            Score score3 = obj.getScore("§fKills §a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentKills() + "§7 | §fPoints §a" + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
-            score3.setScore(4);
+            Score score4 = obj.getScore("§fKills §a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentKills() + "§7 | §fPoints §a" + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
+            score4.setScore(4);
 
-            Score score4 = obj.getScore("§1"); // New line
-            score4.setScore(3);
+            Score score3 = obj.getScore("§1"); // New line
+            score3.setScore(3);
 
-            Score score5 = obj.getScore("§fTotal points: §a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentPoints());
-            score5.setScore(2);
+            Score score2 = obj.getScore("§fTotal points: §a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentPoints());
+            score2.setScore(2);
 
             Score score1 = obj.getScore("§2"); // New line
             score1.setScore(1);
 
-            Score score7 = obj.getScore("§6" + serverCode); // Points gained during this game
-            score7.setScore(0);
+            Score score0 = obj.getScore("§6" + serverCode); // Points gained during this game
+            score0.setScore(0);
 
             players.setScoreboard(board);
 
