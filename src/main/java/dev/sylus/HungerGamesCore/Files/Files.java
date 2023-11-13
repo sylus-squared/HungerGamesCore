@@ -40,6 +40,16 @@ public class Files {
         }
         dataConfig = YamlConfiguration.loadConfiguration(configFile);
         InputStream defaultStream = main.getResource(fileName);
+
+        try {
+            if (!(configFile.exists())){
+                configFile.createNewFile();
+                Bukkit.getLogger().log(Level.WARNING, "Had to create file: " + fileName);
+            }
+        } catch (IOException exception) {
+            Bukkit.getLogger().log(Level.SEVERE, "Error creating file: " + fileName);
+        }
+
         if (defaultStream != null){
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultStream));
             dataConfig.setDefaults(defaultConfig);
@@ -76,7 +86,7 @@ public class Files {
     }
 
     public int getPlayerCap(){
-        return 20; // Later this will read a YAML file and return the max players for that map
+        return 24; // Later this will read a YAML file and return the max players for that map
                    // I don't have the file handling yet, so I am just returning 20 for now
     }
 

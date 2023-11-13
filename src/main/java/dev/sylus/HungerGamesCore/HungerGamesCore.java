@@ -7,6 +7,7 @@ import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Events.*;
 import dev.sylus.HungerGamesCore.Files.Databases;
 import dev.sylus.HungerGamesCore.Files.Files;
+import dev.sylus.HungerGamesCore.Files.Logging;
 import dev.sylus.HungerGamesCore.Game.Border;
 import dev.sylus.HungerGamesCore.Game.Game;
 import dev.sylus.HungerGamesCore.Game.ChestManager;
@@ -61,6 +62,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
     Border border;
     ServerUtil serverUtil;
     KnockbackCheck knockbackCheck;
+    Logging logging;
     boolean canOpenChests = false;
 
     @Override
@@ -68,6 +70,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         // Plugin startup logic
         // Initialise everything
 
+        logging = new Logging();
         files = new Files(this, "worldData.yml");
         serverUtil = new ServerUtil(this);
         databases = new Databases(this, files);
