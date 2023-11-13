@@ -34,8 +34,8 @@ public class Databases {
     public Databases(HungerGamesCore hungerGamesCoreInstance, Files filesInstance){ // Constructor
         main = hungerGamesCoreInstance;
         files = filesInstance;
-        username = files.getConfig("config.yml").getString("database.username");
-        password = files.getConfig("config.yml").getString("database.password");
+        username = "root";  // files.getConfig("config.yml").getString("database.username");
+        password = "root";  //files.getConfig("config.yml").getString("database.password");
     }
 
     /*
