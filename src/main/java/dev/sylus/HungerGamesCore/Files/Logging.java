@@ -11,13 +11,13 @@ import java.util.logging.Level;
 
 public class Logging {
 
-    private final String fileName = "hungerGamesCore.log";
+    private static final String fileName = "hungerGamesCore.log";
 
     public Logging(){
 
     }
 
-    public void log(Level severity, String log){
+    public static void log(Level severity, String log){
         try {
             File logFile = new File(fileName);
             if (!(logFile.exists())){

@@ -26,18 +26,17 @@ public class Databases {
     String driver;
     String username;
     String password;
-    Logging logging;
+
     Map<UUID, PlayerData> localDataMap = new ConcurrentHashMap<>();
 
     UUID playerUUID;
     PlayerData playerData;
 
-    public Databases(HungerGamesCore hungerGamesCoreInstance, Files filesInstance, Logging loggingInstance){ // Constructor
+    public Databases(HungerGamesCore hungerGamesCoreInstance, Files filesInstance){ // Constructor
         main = hungerGamesCoreInstance;
         files = filesInstance;
         username = files.getConfig("config.yml").getString("database.username");
         password = files.getConfig("config.yml").getString("database.password");
-        logging = loggingInstance;
     }
 
     /*
@@ -99,21 +98,21 @@ public class Databases {
             );
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
         } catch (ClassNotFoundException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
         }
     }
 
     public void closeConnection(){
         try {
             Bukkit.getLogger().log(Level.WARNING, "Closed the database connection");
-            logging.log(Level.INFO, "Closing the database connection");
+            Logging.log(Level.INFO, "Closing the database connection");
             connection.close();
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
         }
     }
 
@@ -149,7 +148,7 @@ public class Databases {
             return false;
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
         }
         return false;
     }
@@ -187,7 +186,7 @@ public class Databases {
             preparedStatement.close();
         } catch (SQLException error){
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
             return null;
         }
         return dataToReturn;
@@ -208,7 +207,7 @@ public class Databases {
             statement.close();
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
         }
     }
 
@@ -227,7 +226,7 @@ public class Databases {
             preparedStatement.close();
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
         }
     }
 
@@ -249,7 +248,7 @@ public class Databases {
             preparedStatement.close();
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
         }
     }
 
@@ -267,7 +266,7 @@ public class Databases {
             preparedStatement.close();
         } catch (SQLException error) {
             Bukkit.getLogger().log(Level.SEVERE, String.valueOf(error));
-            logging.log(Level.SEVERE, String.valueOf(error));
+            Logging.log(Level.SEVERE, String.valueOf(error));
         }
     }
 
