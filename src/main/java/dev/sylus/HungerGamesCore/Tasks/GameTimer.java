@@ -108,6 +108,11 @@ public class GameTimer extends BukkitRunnable {
                 }
                 Bukkit.broadcastMessage(ChatColor.RED + "Players will become vulnerable in 10 seconds");
                 return;
+            } else if (secondHalfTimerCountdown == 15 || secondHalfTimerCountdown == 10 || secondHalfTimerCountdown <= 5 ){
+                Bukkit.broadcastMessage("§eThe game will begin in §c" + secondHalfTimerCountdown + " §esecond" + (secondHalfTimerCountdown == 1 ? "" : "s"));
+                for (Player players: Bukkit.getOnlinePlayers()) {
+                    players.playSound(players.getLocation(), Sound.BLOCK_TRIPWIRE_ATTACH, 1, 1);
+                }
             }
             secondHalfTimerCountdown--;
             scorebord.refreshScorebordAll();
@@ -211,6 +216,7 @@ public class GameTimer extends BukkitRunnable {
     }
 
     public void startDeathmatch(){
-        game.setState(GameState.gameState.DEATHMATCH, "GameTimer Only 2 players left"); // Stops all the timers and starts the deathmatch timer
+        secondHalfTimerCountdown = 16;
+        game.setState(GameState.gameState.SECONDHALF, "Deathmatch starting from an event");
     }
 }

@@ -1,6 +1,5 @@
 package dev.sylus.HungerGamesCore.Game;
 
-import dev.sylus.HungerGamesCore.Enums.GameState;
 import dev.sylus.HungerGamesCore.Files.Files;
 import dev.sylus.HungerGamesCore.HungerGamesCore;
 import org.bukkit.Bukkit;
@@ -10,7 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,7 +29,6 @@ public class ChestManager implements Listener {
     private final List<LootItem> lootItems = new ArrayList<>();
 
     ConfigurationSection itemsSection;
-    FileConfiguration lootConfig;
     String chestName;
     Files files;
     Set<String> keys;
@@ -56,17 +54,13 @@ public class ChestManager implements Listener {
             }
 
             chestName = chest.getCustomName();
-            Bukkit.getLogger().log(Level.WARNING, chestName);
             if (chestName == null || chestName.equals("chest")){
                 chestName = "COMMON";
             }
             chestName = chestName.replaceAll("§[a-f0-9]", "");
             chestName = chestName.replace(" chest", "");
 
-
             itemsSection = files.getConfig("worldData.yml").getConfigurationSection("firstHalfItems." + chestName);
-
-            Bukkit.getLogger().log(Level.WARNING, String.valueOf(itemsSection));
 
             if (itemsSection != null){
                 keys = itemsSection.getKeys(false);
@@ -108,7 +102,13 @@ public class ChestManager implements Listener {
                 ItemStack itemStack = randomItem.make(random);
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-                itemMeta.setUnbreakable(true);
+                if (itemStack.equals(Material.SHIELD)){
+                    Damageable damageable = (Damageable) itemMeta;
+                    damageable.damage(333);
+                    itemStack.setItemMeta((ItemMeta) damageable);
+                } else{
+                    itemMeta.setUnbreakable(true);
+                }
                 itemStack.setItemMeta(itemMeta);
                 inventory.setItem(slotIndex, itemStack);
             }
@@ -130,6 +130,5 @@ public class ChestManager implements Listener {
             players.sendTitle("§cChests refilled", "", 10, 20, 10);
             players.playSound(players.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
         }
-
     }
 }

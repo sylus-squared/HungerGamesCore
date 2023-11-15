@@ -73,7 +73,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         logging = new Logging();
         files = new Files(this, "worldData.yml");
         serverUtil = new ServerUtil(this);
-        databases = new Databases(this, files);
+        databases = new Databases(this, files, logging);
         border = new Border(files);
         chestManager = new ChestManager(files, this);
         game = new Game(this, chestManager, files, border, serverUtil, databases);
@@ -99,6 +99,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         getServer().getPluginManager().registerEvents(noSleep, this);
         getServer().getPluginManager().registerEvents(new TridentMachineGun(this), this);
         getServer().getPluginManager().registerEvents(new EnchantingTable(), this);
+        getServer().getPluginManager().registerEvents(new ProjectileKnockback(), this);
 
         // Initialise the commands
         getCommand("gameStart").setExecutor(new GameStart(game));
@@ -121,7 +122,7 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
 
-        game.setState(GameState.gameState.TESTING, "Main class");
+        game.setState(GameState.gameState.PREGAME, "Main class");
         logger.log(Level.INFO, "CoreLoaded");
         logger.log(Level.INFO, "Game state changed to: " + game.getState());
         game.setVunrability(false); // Stop people being able to damage each other before the game starts

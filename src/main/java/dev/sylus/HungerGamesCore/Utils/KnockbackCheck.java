@@ -37,6 +37,9 @@ public class KnockbackCheck extends BukkitRunnable{
             // Stop the task after three knockbacks.
             endingLocation = player.getLocation().toVector();
             commandSender.sendMessage(ChatColor.AQUA + "Player " + player + " took " + Math.round(initialPosition.distance(endingLocation) * 100.0) / 100.0 + " blocks of knockback");
+            if (Math.round(initialPosition.distance(endingLocation) * 100.0) / 100.0 == 0){
+                commandSender.sendMessage(ChatColor.RED + "Player is most likely using antiKB");
+            }
             cancel();
         }
     }

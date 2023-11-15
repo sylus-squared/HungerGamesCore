@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,6 +21,7 @@ public class LootItem {
     private final double chance;
     private final int minAmount;
     private final int maxAmount;
+    ItemStack itemStack;
     public LootItem(ConfigurationSection section) {
         Material material;
 
@@ -57,7 +59,7 @@ public class LootItem {
 
     public ItemStack make(ThreadLocalRandom random){
         int amount = random.nextInt(minAmount, maxAmount + 1);
-        ItemStack itemStack = new ItemStack(material, amount);
+        itemStack = new ItemStack(material, amount);
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         if (customName != null){
@@ -72,5 +74,23 @@ public class LootItem {
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
+    public ItemStack getItem(){
+        return itemStack;
+    }
+
+    @Override
+    public boolean equals(Object obj) { // This is to make sure checking if an item has already been put in the chest
+        if (this == obj) return true;   // works correctly
+        if (obj == null || getClass() != obj.getClass()) return false;
+        LootItem lootItem = (LootItem) obj;
+        return material == lootItem.material &&
+                enchantmentToLevelMap.equals(lootItem.enchantmentToLevelMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(material, enchantmentToLevelMap);
+    }
+
 
 }

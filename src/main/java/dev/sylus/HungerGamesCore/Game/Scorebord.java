@@ -300,7 +300,7 @@ public class Scorebord implements Listener {
             Score score1 = obj.getScore("§2"); // New line
             score1.setScore(1);
 
-            Score score0 = obj.getScore("§6" + serverCode); // Points gained during this game
+            Score score0 = obj.getScore("§6" + serverCode);
             score0.setScore(0);
 
             players.setScoreboard(board);
