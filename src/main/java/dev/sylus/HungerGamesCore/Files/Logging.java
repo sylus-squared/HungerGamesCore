@@ -25,7 +25,7 @@ public class Logging {
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String logEntry = dateFormat.format(new Date() + " [" + String.valueOf(severity) + "] " + log);
+            String logEntry = dateFormat.format(new Date()) + " [" + String.valueOf(severity) + "] " + log;
 
             FileWriter writer = new FileWriter(logFile, true);
             writer.write(logEntry + "\n");

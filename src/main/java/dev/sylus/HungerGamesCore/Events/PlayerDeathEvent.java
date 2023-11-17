@@ -47,7 +47,7 @@ public class PlayerDeathEvent implements Listener {
         if (game.getPlayerNumbers() == 1){ // There is only one player left, declare them winner
             gameTimer.stopGame(false);
             Bukkit.getLogger().log(Level.INFO, "Game OOOOOOVERRRR");
-        } else if (game.getPlayerNumbers() == 2) { // There are 2 players left, its deathmatch time
+        } else if (game.getPlayerNumbers() == 2 && game.getState() != GameState.gameState.DEATHMATCH) { // There are 2 players left, its deathmatch time
             gameTimer.startDeathmatch();
         }
 
