@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.*;
 
+import java.util.ArrayList;
+
 
 public class Scorebord implements Listener {
     Game game;
@@ -26,6 +28,7 @@ public class Scorebord implements Listener {
     String currentEvent = "§6Not started";
     String nextEvent = "§6Not started";
     HungerGamesCore main;
+    ArrayList<Player> playersJoined = new ArrayList<>();
 
     /*
     The scoreboard will look like this:
@@ -64,14 +67,17 @@ public class Scorebord implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        createBoard(event.getPlayer());
-        this.refreshScorebordAll();
+        if (!(playersJoined.contains(event.getPlayer()))){
+            createBoard(event.getPlayer());
+        } else {
+            playersJoined.add(event.getPlayer());
+        }
     }
 
     public void createBoard(Player player) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy", "§6§lThe Hunger Games");
+        Objective obj = board.registerNewObjective("HungerGamesScoreboard-1", "dummy", "§6§lThe Hunger Games");
         // obj.setDisplayName("");
 
         switch (game.getState()) {
@@ -193,7 +199,7 @@ public class Scorebord implements Listener {
 
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy","§6§lThe Hunger Games");
+        Objective obj = board.registerNewObjective("HungerGamesScoreboard-1", "dummy","§6§lThe Hunger Games");
         // obj.setDisplayName("");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
