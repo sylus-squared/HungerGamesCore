@@ -130,13 +130,15 @@ public final class HungerGamesCore extends JavaPlugin implements PluginMessageLi
         try {
             File myObj = new File("filename.txt");
             if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
+                logger.log(Level.INFO, "File created: " + myObj.getName());
+                Logging.log(Level.INFO, "File created: " + myObj.getName());
             } else {
-                System.out.println("File already exists.");
+                logger.log(Level.INFO, "File already exists.");
+                Logging.log(Level.INFO, "File already exists.");
             }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+        } catch (IOException exception) {
+            logger.log(Level.SEVERE, String.valueOf(exception));
+            Logging.log(Level.SEVERE, String.valueOf(exception));
         }
         border.initialiseBorder();
 
