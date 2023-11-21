@@ -87,6 +87,13 @@ public class Databases {
         updateData(uuid, getLocalPlayerData(uuid).getGamePoints());
     }
 
+    public void resetPoints(UUID uuid){
+      PlayerData playersData = getLocalPlayerData(uuid);
+      playersData.setOverallPoints(0);
+      playersData.setGamePoints(0);
+      addPointsToDB(uuid);
+    }
+
     public void initialiseDatabase(){
         try {
             driver = "org.mariadb.jdbc.Driver";
@@ -230,6 +237,7 @@ public class Databases {
         }
     }
 
+    @Deprecated
     public void addPointstoDB(UUID uuid, int pointsToAdd){
         if (connection == null){
             initialiseDatabase();
@@ -252,7 +260,8 @@ public class Databases {
         }
     }
 
-    public void resetPoints(UUID uuid){
+    @Deprecated
+    public void resetPointsDatabase(UUID uuid){ // Not used anymore
         if (connection == null){
             initialiseDatabase();
         }

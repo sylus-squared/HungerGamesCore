@@ -22,7 +22,6 @@ public class SendPlayer implements CommandExecutor {
         if (args.length < 1){
             sender.sendMessage(ChatColor.RED + "Incorrect usage. The correct useage is /sendplayer <PLAYERNAME or ALL> <SERVER NAME>");
         }
-        sender.sendMessage(ChatColor.RED + "WARNING THIS COMMAND IS DESTRUCTIVE AND ITS USE WILL BE LOGGED");
         if (args[1].isEmpty()){
             sender.sendMessage(ChatColor.RED + "Please include a server name");
         }

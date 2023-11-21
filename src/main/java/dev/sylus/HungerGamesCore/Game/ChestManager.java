@@ -102,13 +102,7 @@ public class ChestManager implements Listener {
                 ItemStack itemStack = randomItem.make(random);
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-                if (itemStack.getType().equals(Material.SHIELD)){
-                    Damageable damageable = (Damageable) itemMeta;
-                    damageable.damage(333);
-                    itemStack.setItemMeta((ItemMeta) damageable);
-                } else{
-                    itemMeta.setUnbreakable(true);
-                }
+                itemMeta.setUnbreakable(true);
                 itemStack.setItemMeta(itemMeta);
                 inventory.setItem(slotIndex, itemStack);
             }

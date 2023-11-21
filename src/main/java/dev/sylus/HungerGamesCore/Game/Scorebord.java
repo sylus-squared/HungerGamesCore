@@ -29,6 +29,9 @@ public class Scorebord implements Listener {
     String nextEvent = "§6Not started";
     HungerGamesCore main;
     ArrayList<Player> playersJoined = new ArrayList<>();
+    ScoreboardManager manager;
+    Scoreboard board;
+    Objective obj;
 
     /*
     The scoreboard will look like this:
@@ -75,11 +78,6 @@ public class Scorebord implements Listener {
     }
 
     public void createBoard(Player player) {
-        ScoreboardManager manager = Bukkit.getScoreboardManager();
-        Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("HungerGamesScoreboard-1", "dummy", "§6§lThe Hunger Games");
-        // obj.setDisplayName("");
-
         switch (game.getState()) {
             case ACTIVE:
                 int seconds = Integer.parseInt(gameTimer.getTimeLeft());
@@ -197,11 +195,7 @@ public class Scorebord implements Listener {
             databases = main.getDatabases();
         }
 
-        ScoreboardManager manager = Bukkit.getScoreboardManager();
-        Scoreboard board = manager.getNewScoreboard();
-        Objective obj = board.registerNewObjective("HungerGamesScoreboard-1", "dummy","§6§lThe Hunger Games");
-        // obj.setDisplayName("");
-        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
 
         for (Player players: Bukkit.getOnlinePlayers()){
             switch (game.getState()) {

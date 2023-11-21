@@ -16,8 +16,8 @@ public class ServerUtil {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Connect");
         out.writeUTF(serverName);
+        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
         // Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null); to do it for all players
         player.sendPluginMessage(main, "BungeeCord", out.toByteArray());
-
     }
 }
