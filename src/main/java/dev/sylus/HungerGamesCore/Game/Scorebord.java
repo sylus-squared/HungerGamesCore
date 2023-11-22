@@ -78,6 +78,12 @@ public class Scorebord implements Listener {
     }
 
     public void createBoard(Player player) {
+        manager = Bukkit.getScoreboardManager();
+        board = manager.getNewScoreboard();
+        obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy","§6§lThe Hunger Games");
+        // obj.setDisplayName("");
+        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
         switch (game.getState()) {
             case ACTIVE:
                 int seconds = Integer.parseInt(gameTimer.getTimeLeft());
