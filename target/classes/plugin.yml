@@ -72,7 +72,12 @@ commands:
   giveMachineGun:
     description: Gives the player a trident that acts like a machine gun
     usage: /giveMachineGun
-    permission: hungerGamesLobby.admin
+    permission: hungergamescore.admin
+
+  toggleChests:
+    usage: /toggleChests
+    description: Toggles the ability for players to open chests
+    permission: hungergamescore.admin
 
 permissions:
   hungergamescore.startgame:
