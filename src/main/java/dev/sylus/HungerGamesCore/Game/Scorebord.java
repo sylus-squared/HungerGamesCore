@@ -204,6 +204,10 @@ public class Scorebord implements Listener {
 
 
         for (Player players: Bukkit.getOnlinePlayers()){
+            obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy","§6§lThe Hunger Games");
+            //  obj.setDisplayName("");
+            obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
             switch (game.getState()) {
                 case ACTIVE:
                     int seconds = Integer.parseInt(gameTimer.getTimeLeft());
