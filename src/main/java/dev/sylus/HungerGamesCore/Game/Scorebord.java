@@ -204,9 +204,17 @@ public class Scorebord implements Listener {
 
 
         for (Player players: Bukkit.getOnlinePlayers()){
-            obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy","§6§lThe Hunger Games");
-            //  obj.setDisplayName("");
+          //  Scoreboard scorebordToRefresh = players.getScoreboard();
+          //  obj = scorebordToRefresh.getObjective(DisplaySlot.SIDEBAR);
+
+            ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
+            Scoreboard board = scoreboardManager.getNewScoreboard();
+            Objective obj = board.registerNewObjective("HungerGamesScorebord-1", "dummy","§6§lThe Hunger Games");
             obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+          //  manager = Bukkit.getScoreboardManager();
+          //  board = manager.getMainScoreboard();
+          //  obj = board.getObjective("HungerGamesScorebord-1"); // board.registerNewObjective("HungerGamesScorebord-1", "dummy","§6§lThe Hunger Games");
 
             switch (game.getState()) {
                 case ACTIVE:
