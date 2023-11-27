@@ -109,7 +109,7 @@ public class GameTimer extends BukkitRunnable {
                 Bukkit.broadcastMessage(ChatColor.RED + "Players will become vulnerable in 10 seconds");
                 return;
             } else if (secondHalfTimerCountdown == 15 || secondHalfTimerCountdown == 10 || secondHalfTimerCountdown <= 5 ){
-                Bukkit.broadcastMessage("§eThe game will begin in §c" + secondHalfTimerCountdown + " §esecond" + (secondHalfTimerCountdown == 1 ? "" : "s"));
+                Bukkit.broadcastMessage("§eThe deathmatch will begin in §c" + secondHalfTimerCountdown + " §esecond" + (secondHalfTimerCountdown == 1 ? "" : "s"));
                 for (Player players: Bukkit.getOnlinePlayers()) {
                     players.playSound(players.getLocation(), Sound.BLOCK_TRIPWIRE_ATTACH, 1, 1);
                 }
