@@ -14,7 +14,6 @@ public class Logging {
     private static final String fileName = "hungerGamesCore.log";
 
     public Logging(){
-
     }
 
     public static void log(Level severity, String log){
@@ -22,6 +21,7 @@ public class Logging {
             File logFile = new File(fileName);
             if (!(logFile.exists())){
                 logFile.createNewFile();
+                Bukkit.getLogger().log(Level.INFO, "Creating file: " + fileName);
             }
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
