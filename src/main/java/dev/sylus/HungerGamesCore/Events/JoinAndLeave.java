@@ -50,6 +50,8 @@ public class JoinAndLeave implements Listener {
         Location location = new Location(Bukkit.getWorld("world"), x, y, z);
         player.teleport(location);
 
+        scorebord.givePlayerScorebord(player);
+
 
         System.out.println(game.getPlayerNumbers() + "PLAYERNUMBERS");
         if (game.getPlayerNumbers() >= files.getPlayerCap()){

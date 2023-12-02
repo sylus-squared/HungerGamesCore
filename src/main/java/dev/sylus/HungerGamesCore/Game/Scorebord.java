@@ -71,12 +71,18 @@ public class Scorebord implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        Bukkit.getLogger().log(Level.INFO, "Player joined, trying to give scorebord");
+   /*     Bukkit.getLogger().log(Level.INFO, "Player joined, trying to give scorebord");
         if (event.getPlayer().getScoreboard() != null && event.getPlayer().getScoreboard().getObjective("HungerGamesScoreboard-1") != null) {
             refreshScorebordAll();
         } else {
             createNewScoreboard(event.getPlayer());
         }
+
+    */
+    }
+
+    public void givePlayerScorebord(Player player){
+        createNewScoreboard(player);
     }
 
     private void createNewScoreboard(Player player){
@@ -187,8 +193,7 @@ public class Scorebord implements Listener {
         Team team6 = scoreboard.registerNewTeam("team6");
 
         team6.addEntry(ChatColor.GOLD.toString());
-        team6.setPrefix("§fPlayers alive: ");
-        team6.setSuffix("§a" + game.getPlayerNumbers() + "/" + "24");
+        team6.setPrefix("§fPlayers alive: §a" + game.getPlayerNumbers() + "/" + "24");
         obj.getScore(ChatColor.GOLD.toString()).setScore(6);
 
         //     Score score5 = obj.getScore("§b"); // New Line
@@ -198,8 +203,7 @@ public class Scorebord implements Listener {
         // score4.setScore(4);
         Team team4 = scoreboard.registerNewTeam("team4");
         team4.addEntry(ChatColor.BOLD.toString());
-        team4.addEntry("§fKills ");
-        team4.setSuffix("§a" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentKills() + "§7 | §fPoints §a" + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints());
+        team4.setPrefix("§fKills §a" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentKills() + "§7 | §fPoints §a" + databases.getLocalPlayerData(player.getUniqueId()).getGamePoints());
         obj.getScore(ChatColor.BOLD.toString()).setScore(4);
 
         Score score3 = obj.getScore("§1"); // New line
@@ -210,8 +214,7 @@ public class Scorebord implements Listener {
 
         Team team2 = scoreboard.registerNewTeam("team2");
         team2.addEntry(ChatColor.UNDERLINE.toString());
-        team2.addEntry("§fTotal points:  ");
-        team2.setSuffix("§a" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints());
+        team2.setPrefix("§fTotal points: §a" + databases.getLocalPlayerData(player.getUniqueId()).getCurrentPoints());
         obj.getScore(ChatColor.UNDERLINE.toString()).setScore(2);
 
         Score score1 = obj.getScore("§2"); // New line
@@ -229,8 +232,6 @@ public class Scorebord implements Listener {
         if (databases == null){
             databases = main.getDatabases();
         }
-
-
 
         for (Player players: Bukkit.getOnlinePlayers()){
             switch (game.getState()) {
@@ -311,21 +312,17 @@ public class Scorebord implements Listener {
             team8.setPrefix(currentEvent);
 
             Team team6 = scoreboard.getTeam("team6");
-            team6.setSuffix("§a" + game.getPlayerNumbers() + "/" + "24");
+            team6.setPrefix("§fPlayers alive: §a" + game.getPlayerNumbers() + "/" + "24");
 
             Team team4 = scoreboard.getTeam("team4");
-            team4.setSuffix("§a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentKills() + "§7 | §fPoints §a" + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
+            team4.setPrefix("§fKills §a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentKills() + "§7 | §fPoints §a" + databases.getLocalPlayerData(players.getUniqueId()).getGamePoints());
 
             Team team2 = scoreboard.getTeam("team2");
-            team2.setSuffix("§a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentPoints());
-
-
+            team2.setPrefix("§fTotal points: §a" + databases.getLocalPlayerData(players.getUniqueId()).getCurrentPoints());
         }
 
     }
-
     public void refreshScorebordPlayer(Player player){
 
     }
-
 }

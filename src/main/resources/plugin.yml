@@ -79,11 +79,6 @@ commands:
     description: Toggles the ability for players to open chests
     permission: hungergamescore.admin
 
-  startDeathmatch:
-    usage: /startDeathmatch
-    description: Starts the deathmatch
-    permission: hungergamescore.admin
-
 permissions:
   hungergamescore.startgame:
     description: Allows players to user the /gameStart command
