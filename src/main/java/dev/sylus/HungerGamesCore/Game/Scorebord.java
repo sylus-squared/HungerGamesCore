@@ -237,7 +237,7 @@ public class Scorebord implements Listener {
             switch (game.getState()) {
                 case ACTIVE:
                     int seconds = Integer.parseInt(gameTimer.getTimeLeft());
-                    int minutes = seconds / 60;
+                    int minutes = seconds / 60; // This needs to be fixed
                     seconds = seconds % 60;
 
                     if (minutes == 0) {
