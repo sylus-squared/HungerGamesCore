@@ -141,7 +141,7 @@ public class Scorebord implements Listener {
                     if (minutes == 0) {
                         this.formattedTime = String.format("%02d", seconds); // No minutes, formatted as 0:seconds
                     } else {
-                        this.formattedTime = String.format("%d:%02d", minutes, seconds); // Formated as minutes:seconds
+                        this.formattedTime = String.format("%d:%02d", minutes, seconds); // Formatted as minutes:seconds
                     }
                 }
 
