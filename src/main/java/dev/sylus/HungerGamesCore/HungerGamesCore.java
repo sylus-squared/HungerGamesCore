@@ -32,23 +32,6 @@ import java.util.logging.Logger;
 
 public final class HungerGamesCore extends JavaPlugin implements PluginMessageListener {
 
-    /*
-    -----------------------------------------------------------------------
-                                Hunger games core
-    This plugin is made specifically for a Hunger games tournament that I am hosting
-    It most likely won't work on other servers so use it at your own risk :)
-
-    TODO:
-    * Create the deathmatch system
-    * Create the logic to teleport people to the correct spots (Gets the coordinates from the world data.yaml file)
-    * Create the lobby plugin, that means armour stands :(
-    * Create the API
-    * Remember to actually update this
-    * yaml death
-    * CHEST RARITY (Fix the stupid NBT editor class not found exception)
-    -----------------------------------------------------------------------
-     */
-
     public Logger logger = Bukkit.getLogger();
     Game game;
     Files files;
